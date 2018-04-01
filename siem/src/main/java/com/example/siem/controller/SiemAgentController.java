@@ -22,7 +22,7 @@ public class SiemAgentController
     @Autowired
     SiemAgentService siemAgentService;
 
-    @RequestMapping(value = "/saveLog", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/saveLog", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Log> addLog(@RequestBody String log) throws ParseException {
 
         System.out.println("Usao u post metodu");
