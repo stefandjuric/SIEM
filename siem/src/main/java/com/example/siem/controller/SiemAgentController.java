@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
+
 /**
  * Created by djuro on 3/31/2018.
  */
@@ -21,8 +23,9 @@ public class SiemAgentController
     SiemAgentService siemAgentService;
 
     @RequestMapping(value = "/saveLog", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Log> makeBill(@RequestBody String log)
-    {
+    public ResponseEntity<Log> addLog(@RequestBody String log) throws ParseException {
+
+        System.out.println("Usao u post metodu");
         Log logObject = this.siemAgentService.saveLog(log);
         if(logObject == null)
         {

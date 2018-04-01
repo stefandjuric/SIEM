@@ -32,4 +32,11 @@ public class Log
 
     @Column(name = "log_date")
     private Date date;
+
+    public Log(String type, String description, Date date)
+    {
+        this.type = type;
+        this.description = description;
+        this.date = date;
+    }
 }
