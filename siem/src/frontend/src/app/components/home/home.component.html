@@ -1,0 +1,19 @@
+
+<div class="login">
+  <form>
+    <fieldset>
+      <legend>Log in</legend>
+      <div class="form-group">
+        <label for="usr">Username</label>
+        <input type="text" class="form-control" id="usr" placeholder="Enter username" name="usr" [(ngModel)]="usr" >
+        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" name="password" [(ngModel)]="password" >
+      </div>
+      <button type="submit" (click)="authenticate()" id="loginButton"  class="btn btn-primary">Log in</button>
+      <div id = "login"> </div>
+    </fieldset>
+  </form>
+</div>

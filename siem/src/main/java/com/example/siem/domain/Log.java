@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "log")
+@Table(name = "Log")
 public class Log
 {
     @Id

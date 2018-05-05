@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by djuro on 3/31/2018.
@@ -39,5 +40,26 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
 
         return saved;
+    }
+
+    @Override
+    public List<Log> getLogs()
+    {
+        List<Log> logs = this.logRepository.findAll();
+        return logs;
+    }
+
+    @Override
+    public List<Log> searchByType(String type)
+    {
+        List<Log> logs = this.logRepository.findByType(type);
+        return logs;
+    }
+
+    @Override
+    public List<Log> searchByDate(Date from, Date to)
+    {
+        List<Log> logs = this.logRepository.findByDate(from, to);
+        return logs;
     }
 }

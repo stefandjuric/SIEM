@@ -1,0 +1,55 @@
+<div>
+  <table>
+    <tr>
+      <td colspan="3"><input type="text" class="form-control" id="type" placeholder="Enter type for search" name="usr" [(ngModel)]="typeSearch" ></td>
+      <td><button type="submit" (click)="searchByType()"  class="btn btn-primary" id="searchByType">Search</button></td>
+    </tr>
+  </table>
+   from:
+  <input type="datetime-local" name="dateSearch1">
+  to:
+  <input type="datetime-local" name="dateSearch1">
+  <button type="submit" (click)="searchByData()"  class="btn btn-primary" id="searchByDate">Search</button>
+  <div class="container" ng-app="invoice" *ngIf="searchedLogs!=''">
+    <section class="row" ng-controller="InvoiceController">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of logs; let i = index">
+          <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
+          <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+          <td><fieldset disabled=""><input type="number" [(ngModel)]="item.date" class="form-control" /></fieldset></td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+
+<div class="container" ng-app="invoice">
+  <section class="row" ng-controller="InvoiceController">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of logs; let i = index">
+        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
+        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+        <td><fieldset disabled=""><input type="number" [(ngModel)]="item.date" class="form-control" /></fieldset></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
