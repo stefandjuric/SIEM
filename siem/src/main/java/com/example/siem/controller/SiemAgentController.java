@@ -57,5 +57,11 @@ public class SiemAgentController
         List<Log> logs = this.siemAgentService.searchByDate(dto.getDate1(), dto.getDate2());
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/welcome")
+    public String hello()
+    {
+        return "Hello world!!!";
+    }
 }
 
