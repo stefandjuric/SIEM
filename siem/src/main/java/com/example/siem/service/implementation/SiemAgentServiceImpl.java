@@ -18,7 +18,7 @@ import java.util.List;
 public class SiemAgentServiceImpl implements SiemAgentService
 {
 
-    private final LogRepository logRepository;
+    private LogRepository logRepository;
 
     @Autowired
     public SiemAgentServiceImpl(LogRepository logRepository)
