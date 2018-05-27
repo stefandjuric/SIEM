@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,26 +13,21 @@ import java.util.Date;
 /**
  * Created by djuro on 3/31/2018.
  */
-@Entity
+
 @AllArgsConstructor(suppressConstructorProperties = true)
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "Log")
+@Document(collection = "logs")
 public class Log
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "log_id", unique = true, nullable = false)
-    private Long id;
+    private String id;
 
-    @Column(name = "log_type")
     private String type;
 
-    @Column(name = "log_description")
     private String description;
 
-    @Column(name = "log_date")
     private Date date;
 
     public Log(String type, String description, Date date)
@@ -38,5 +35,12 @@ public class Log
         this.type = type;
         this.description = description;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Log[id=%s, type='%s', description='%s', date='%s']",
+                id, type, description, date);
     }
 }

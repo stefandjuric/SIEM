@@ -1,9 +1,9 @@
 package com.example.siem.repository;
 
 import com.example.siem.domain.Log;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -11,11 +11,13 @@ import java.util.List;
 /**
  * Created by djuro on 3/31/2018.
  */
-public interface LogRepository extends JpaRepository<Log,Long>
+public interface LogRepository extends MongoRepository<Log,String>
 {
+    @Query("{ 'type' : ?0 }")
     List<Log> findByType(String type);
 
-    @Query("SELECT w FROM Log w WHERE w.date >= :date1 AND w.date <= :date2")
-    List<Log> findByDate(@Param("date1") Date date1, @Param("date2") Date date2);
-}
+    @Query("{ 'date' : { $gt: ?0, $lt: ?1 } }")
+    List<Log> findByDate(Date date1, Date date2);
+
+    }
 
