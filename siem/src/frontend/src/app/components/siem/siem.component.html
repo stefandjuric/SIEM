@@ -1,4 +1,5 @@
 <div>
+  <div class="jumbotron">
   <table>
     <tr>
       <td colspan="3"><input type="text" class="form-control" id="type" placeholder="Enter type for search" name="usr" [(ngModel)]="typeSearch" ></td>
@@ -9,7 +10,16 @@
   <input type="datetime-local" name="dateSearch1">
   to:
   <input type="datetime-local" name="dateSearch1">
-  <button type="submit" (click)="searchByData()"  class="btn btn-primary" id="searchByDate">Search</button>
+    <button type="submit" (click)="searchByData()"  class="btn btn-primary" id="searchByDate">Search</button>
+    <div>
+    <table>
+      <tr>
+        <td colspan="3"><input type="text" class="form-control" id="type1" placeholder="Enter regex for search" name="usr" [(ngModel)]="regexString" ></td>
+        <td><button type="submit" (click)="searchByType()"  class="btn btn-primary" id="regexString">Search</button></td>
+      </tr>
+    </table>
+    </div>
+  </div>
   <div class="container" ng-app="invoice" *ngIf="searchedLogs!=''">
     <section class="row" ng-controller="InvoiceController">
       <table class="table table-hover">
@@ -21,7 +31,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of logs; let i = index">
+        <tr *ngFor="let item of searchedLogs; let i = index">
           <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
           <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
           <td><fieldset disabled=""><input type="number" [(ngModel)]="item.date" class="form-control" /></fieldset></td>
@@ -43,12 +53,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of logs; let i = index">
+      <tr *ngFor="let item of logs | paginate: {itemsPerPage:5, currentPage: p}">
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
-        <td><fieldset disabled=""><input type="number" [(ngModel)]="item.date" class="form-control" /></fieldset></td>
+        <td><fieldset disabled=""><input type="text" class="form-control" value="{{item.date | date:'hh:mm yyyy-MM-dd'}}" /></fieldset></td>
       </tr>
       </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </table>
   </section>
 </div>

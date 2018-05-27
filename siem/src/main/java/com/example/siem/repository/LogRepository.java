@@ -13,8 +13,7 @@ import java.util.List;
  */
 public interface LogRepository extends JpaRepository<Log,Long>
 {
-    @Query("SELECT w FROM Log w WHERE w.type = :type")
-    List<Log> findByType(@Param("type") String type);
+    List<Log> findByType(String type);
 
     @Query("SELECT w FROM Log w WHERE w.date >= :date1 AND w.date <= :date2")
     List<Log> findByDate(@Param("date1") Date date1, @Param("date2") Date date2);

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,8 +53,17 @@ public class SiemAgentServiceImpl implements SiemAgentService
     @Override
     public List<Log> searchByType(String type)
     {
+        System.out.println("Type:      "+type);
         List<Log> logs = this.logRepository.findByType(type);
-        return logs;
+        List<Log> logs1 = new ArrayList<>();
+        for(Log l : logs)
+        {
+            if(l.getType().equals(type)) {
+                logs1.add(l);
+            }
+        }
+
+        return logs1;
     }
 
     @Override

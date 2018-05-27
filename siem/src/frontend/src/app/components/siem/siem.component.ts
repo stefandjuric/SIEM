@@ -4,6 +4,7 @@ import { Log, SearchByDateDTO } from "../../models";
 import { SiemService } from "../../services/siem.service";
 import { Router } from '@angular/router';
 import {Observable, Subscription} from "rxjs";
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,7 @@ export class SiemComponent
 
   logs:Log[];
   typeSearch:string="";
+  regexString:string="";
   date1:Date=null;
   date2:Date=null;
   searchedLogs:Log[]=[];
@@ -49,8 +51,7 @@ export class SiemComponent
   {
     this.siemService.getLogsByType(this.typeSearch).subscribe
     (
-      data => this.searchedLogs = data,
-      () => {console.log(this.searchedLogs);}
+      data => this.searchedLogs = data
     );
   }
 

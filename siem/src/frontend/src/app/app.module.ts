@@ -7,6 +7,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent }  from './app.component';
@@ -32,7 +33,8 @@ import { routing } from "./app.routes";
     FormsModule,
     HttpClientModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
 
   ],
   declarations: [

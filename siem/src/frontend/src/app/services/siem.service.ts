@@ -17,7 +17,7 @@ export class SiemService {
 
   getAllLogs()
   {
-    return this.http.get<Log[]>("http://localhost:8080/agent/getLogs");
+    return this.http.get<Log[]>("https://localhost:8443/agent/getLogs");
   }
 
   getLogsByType(type:string)
@@ -28,6 +28,6 @@ export class SiemService {
   getLogsByDate(dto:SearchByDateDTO)
   {
     var param = JSON.stringify(dto);
-    return this.http.post<Log[]>("http://localhost:8080/agent/getLogsByDate", param, httpOptions);
+    return this.http.post<Log[]>("https://localhost:8443/agent/getLogsByDate", param, httpOptions);
   }
 }

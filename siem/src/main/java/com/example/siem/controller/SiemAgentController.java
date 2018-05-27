@@ -16,7 +16,7 @@ import java.util.List;
  * Created by djuro on 3/31/2018.
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/agent")
 public class SiemAgentController
 {
@@ -40,6 +40,7 @@ public class SiemAgentController
     @RequestMapping(value = "/getLogs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogs()
     {
+        System.out.print("usao u getLogs");
         List<Log> logs = this.siemAgentService.getLogs();
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
