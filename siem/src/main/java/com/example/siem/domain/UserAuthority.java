@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
-@Document(collection = "user_suthority")
+@Document(collection = "user_authority")
 public class UserAuthority {
 	@Id
 	private String id;
@@ -50,4 +50,10 @@ public class UserAuthority {
 	}
 	*/
 	public UserAuthority() {};
+
+	public UserAuthority(User user, Authority authority)
+	{
+		this.user = user;
+		this.authority = authority;
+	}
 }

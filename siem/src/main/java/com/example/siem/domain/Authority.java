@@ -37,4 +37,9 @@ public class Authority {
 	public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
 		this.userAuthorities = userAuthorities;
 	}
+
+	public Authority(String name)
+	{
+		this.name = name;
+	}
 }

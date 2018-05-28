@@ -1,7 +1,7 @@
 package com.example.siem;
 
-import com.example.siem.domain.Log;
-import com.example.siem.repository.LogRepository;
+import com.example.siem.domain.*;
+import com.example.siem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +19,18 @@ public class SiemApplication implements CommandLineRunner{
 
 	@Autowired
 	private LogRepository logRepository;
+
+	@Autowired
+	private AdminRepository adminRepository;
+
+	@Autowired
+	private AuthorityRepository authorityRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserAuthorityRepository userAuthorityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiemApplication.class, args);
@@ -40,10 +52,29 @@ public class SiemApplication implements CommandLineRunner{
 	@Override
 	public void run(String... strings) throws Exception {
 		logRepository.deleteAll();
+		adminRepository.deleteAll();
+		authorityRepository.deleteAll();
+		userRepository.deleteAll();
+		userAuthorityRepository.deleteAll();
+
 
 		Log l = new Log("INFO", "Os is started", null);
 
+		Admin admin = new Admin(new User("admin", "admin"));
+
+		Authority authority = new Authority("ROLE_ADMIN");
+
+		User user = new User("$2a$10$S3rxpwjnJUrmgMrnMCJo8eIRCFvCcmzuPi5Y3Okz67i/2sj6xMfau", "a");
+
+
 		logRepository.save(l);
+		adminRepository.save(admin);
+		authority = authorityRepository.save(authority);
+		user = userRepository.save(user);
+
+		UserAuthority userAuthority = new UserAuthority(user, authority);
+
+		userAuthorityRepository.save(userAuthority);
 
 		System.out.println("Logs found with findAll():");
 		System.out.println("-------------------------------");
