@@ -1,7 +1,7 @@
 package com.example.siem.repository;
 
 import com.example.siem.domain.Admin;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * Created by djuro on 11/19/2017.
@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 
-public interface AdminRepository extends JpaRepository<Admin,Long>
+public interface AdminRepository extends MongoRepository<Admin,Long>
 {
 }

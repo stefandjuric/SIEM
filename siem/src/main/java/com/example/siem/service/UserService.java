@@ -13,7 +13,7 @@ public interface UserService {
 
     LoginResponseDTO registerUser(RegisterUserDTO registerUser);
 
-    User getUserById(Integer userId);
+    User getUserById(String userId);
 
     User getUserByUsername(String username);
 }

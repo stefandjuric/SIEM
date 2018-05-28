@@ -1,8 +1,7 @@
 package com.example.siem.repository;
 
 import com.example.siem.domain.Authority;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
@@ -14,8 +13,7 @@ import org.springframework.data.repository.query.Param;
  */
 
 
-public interface AuthorityRepository extends JpaRepository<Authority,Long>
+public interface AuthorityRepository extends MongoRepository<Authority,Long>
 {
-    @Query("SELECT w FROM Authority w WHERE w.name = :name")
-    Authority findByName(@Param("name") String name);
+    Authority findByName(String name);
 }

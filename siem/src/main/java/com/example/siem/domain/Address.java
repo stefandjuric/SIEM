@@ -4,34 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-@Table(name = "address")
 public class Address
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    private String id;
 
-    @Column(name = "address_city")
     private String city;
 
-    @Column(name = "address_number")
     private String number;
 
-    @Column(name = "address_street")
     private String street;
 
-    @Column(name = "address_postal_code")
     private String postalCode;
 
-    @Column(name = "address_country")
     private String country;
 
 

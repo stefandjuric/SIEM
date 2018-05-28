@@ -1,8 +1,7 @@
 package com.example.siem.repository;
 
 import com.example.siem.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
@@ -14,8 +13,9 @@ import org.springframework.data.repository.query.Param;
  */
 
 
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends MongoRepository<User,Integer> {
 
-    @Query("SELECT w FROM User w WHERE w.username = :username")
-    User findByUsername(@Param("username") String username);
+    User findByUsername(String username);
+
+    User findById(String userId);
 }

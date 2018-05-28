@@ -1,26 +1,24 @@
 package com.example.siem.domain;
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 public class Authority {
 	@Id
-	@GeneratedValue
-	private Long id;
+	private String id;
 
-	@Column(name = "authority_name")
 	String name;
 
-	@OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
