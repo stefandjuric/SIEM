@@ -1,6 +1,10 @@
 package com.example.siem.service.implementation;
 
+import com.example.siem.domain.Alarm;
+import com.example.siem.domain.AlarmRule;
 import com.example.siem.domain.Log;
+import com.example.siem.repository.AlarmRepository;
+import com.example.siem.repository.AlarmRuleRepository;
 import com.example.siem.repository.LogRepository;
 import com.example.siem.service.SiemAgentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +31,21 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     private MongoTemplate mongoTemplate;
 
+    private AlarmRuleRepository alarmRuleRepository;
+
+    private AlarmRepository alarmRepository;
+
     @Autowired
     public SiemAgentServiceImpl(LogRepository logRepository,
-                                MongoTemplate mongoTemplate)
+                                MongoTemplate mongoTemplate,
+                                AlarmRuleRepository alarmRuleRepository,
+                                AlarmRepository alarmRepository)
     {
         this.logRepository = logRepository;
         this.mongoTemplate = mongoTemplate;
+        this.alarmRuleRepository = alarmRuleRepository;
+        this.alarmRepository = alarmRepository;
+
     }
 
     @Override
@@ -46,8 +59,7 @@ public class SiemAgentServiceImpl implements SiemAgentService
         Date date = formatter.parse(logStr[2]);
 
         Log saved = this.logRepository.save(new Log(type, description, date));
-
-
+        this.addAlarm(saved);
         return saved;
     }
 
@@ -138,5 +150,23 @@ public class SiemAgentServiceImpl implements SiemAgentService
         if(criteria) logs = mongoTemplate.find(query, Log.class);
         return logs;
 
+    }
+
+    public void addAlarm(Log log)
+    {
+        List<AlarmRule> alarmRules = this.alarmRuleRepository.findAll();
+        for(AlarmRule ar : alarmRules)
+        {
+            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && !ar.getIpAddressFlag())
+            {
+                if(ar.getType().equals(log.getType()))
+                {
+                    System.out.println("usao u addAlarm");
+                    Alarm alarm = new Alarm(ar, log.getType(), log.getDescription(), "172.16.254.1", ar.getRepetition(), true);
+                    alarm.addDate(new Date());
+                    this.alarmRepository.save(alarm);
+                }
+            }
+        }
     }
 }

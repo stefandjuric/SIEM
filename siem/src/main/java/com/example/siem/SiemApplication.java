@@ -27,6 +27,9 @@ public class SiemApplication implements CommandLineRunner{
 	@Autowired
 	private LogRepository logRepository;
 
+	@Autowired
+	private AlarmRuleRepository alarmRuleRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SiemApplication.class, args);
 	}
@@ -47,12 +50,15 @@ public class SiemApplication implements CommandLineRunner{
 	@Override
 	public void run(String... strings) throws Exception {
 		logRepository.deleteAll();
+		alarmRuleRepository.deleteAll();
 
 		Log l = new Log("INFO", "Os is started", null);
 		Log l1 = new Log("WARNING", "Os is stoped", null);
+		AlarmRule ar = new AlarmRule("INFO" , null, null, 1, 0, true, false, false);
 
 		logRepository.save(l);
 		logRepository.save(l1);
+		alarmRuleRepository.save(ar);
 
 
 		System.out.println("Logs found with findAll():");
