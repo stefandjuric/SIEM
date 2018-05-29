@@ -18,4 +18,6 @@ public interface SiemAgentService
     List<Log> searchByType(String type);
 
     List<Log> searchByDate(Date from, Date to);
+
+    List<Log> searchByRegex(String regex);
 }

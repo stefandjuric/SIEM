@@ -30,4 +30,9 @@ export class SiemService {
     var param = JSON.stringify(dto);
     return this.http.post<Log[]>("https://localhost:8443/agent/getLogsByDate", param, httpOptions);
   }
+
+  getLogsByRegex(regex:string)
+  {
+    return this.http.get<Log[]>("https://localhost:8443/agent/getLogsByRegex/"+regex);
+  }
 }

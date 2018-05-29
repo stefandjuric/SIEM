@@ -59,10 +59,12 @@ public class SiemAgentController
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/welcome")
-    public String hello()
+    @RequestMapping(value = "/getLogsByRegex/{regex}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Log>> getLogsByRegex(@PathVariable("regex") String regex)
     {
-        return "Hello world!!!";
+        List<Log> logs = this.siemAgentService.searchByRegex(regex);
+        if(logs == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        else return new ResponseEntity<>(logs, HttpStatus.OK);
     }
 }
 

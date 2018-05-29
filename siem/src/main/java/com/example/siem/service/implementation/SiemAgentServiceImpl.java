@@ -4,8 +4,12 @@ import com.example.siem.domain.Log;
 import com.example.siem.repository.LogRepository;
 import com.example.siem.service.SiemAgentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,10 +25,14 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     private LogRepository logRepository;
 
+    private MongoTemplate mongoTemplate;
+
     @Autowired
-    public SiemAgentServiceImpl(LogRepository logRepository)
+    public SiemAgentServiceImpl(LogRepository logRepository,
+                                MongoTemplate mongoTemplate)
     {
         this.logRepository = logRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -71,5 +79,58 @@ public class SiemAgentServiceImpl implements SiemAgentService
     {
         List<Log> logs = this.logRepository.findByDate(from, to);
         return logs;
+    }
+
+    @Override
+    public List<Log> searchByRegex(String regex)
+    {
+        List<Log> logs = new ArrayList<>();
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+        String[] parts = regex.split("and");
+        Query query = new Query();
+        for(String p : parts)
+        {
+            if(p.contains("=="))
+            {
+                String[] attributes = p.split("==");
+                if(attributes[0] == "type") { query.addCriteria(Criteria.where("type").is(attributes[1]));}
+                else if(attributes[0] == "description") { query.addCriteria(Criteria.where("description").is(attributes[1])); }
+                else return null;
+
+            }
+            if(p.contains(">"))
+            {
+                String[] attributes = p.split(">");
+                if(attributes[0] == "date")
+                {
+                    try {
+
+                        query.addCriteria(Criteria.where("date").gt(formatter.parse(attributes[1])));
+                        //date1 = formatter.parse(attributes[1]);
+                    } catch (ParseException e) {
+                        return null;
+                    }
+                }
+                else return null;
+            }
+            if(p.contains("<"))
+            {
+                String[] attributes = p.split(">");
+                if(attributes[0] == "date")
+                {
+                    try {
+                        query.addCriteria(Criteria.where("date").lt(formatter.parse(attributes[1])));
+                        //date2 = formatter.parse(attributes[1]);
+                    } catch (ParseException e) {
+                        return null;
+                    }
+                }
+                else return null;
+            }
+        }
+
+        logs = mongoTemplate.find(query, Log.class);
+        return logs;
+
     }
 }

@@ -38,7 +38,6 @@ export class SiemComponent
   }
 
   private refreshData(): void {
-    console.log("aaaa        " +this.searchedLogs);
     if(this.loadNewData) {
       this.postsSubscription = this.siemService.getAllLogs().subscribe(
         data => {
@@ -83,5 +82,21 @@ export class SiemComponent
     this.typeSearch="";
     this.regexString="";
     this.refreshData();
+  }
+
+  searchByRegex()
+  {
+    if(this.regexString == "")
+    {
+      this.loadNewData = true;
+      this.refreshData();
+    }
+    else{
+      this.loadNewData = false;
+      this.siemService.getLogsByRegex(this.regexString).subscribe
+      (
+        data => this.logs = data
+      );
+    }
   }
 }
