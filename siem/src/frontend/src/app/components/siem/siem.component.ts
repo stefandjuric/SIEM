@@ -29,6 +29,9 @@ export class SiemComponent
   postsSubscription:Subscription;
   timerSubscription:Subscription;
 
+
+  loadNewData:boolean=true;
+
   constructor(private siemService: SiemService, private _router: Router)
   {
     this.refreshData();
@@ -36,30 +39,49 @@ export class SiemComponent
 
   private refreshData(): void {
     console.log("aaaa        " +this.searchedLogs);
-    this.postsSubscription=this.siemService.getAllLogs().subscribe(
-      data => {
-        this.logs = data;
-        this.subscribeToData();
-      });
+    if(this.loadNewData) {
+      this.postsSubscription = this.siemService.getAllLogs().subscribe(
+        data => {
+          this.logs = data;
+          this.subscribeToData();
+        });
+    }
   }
 
   private subscribeToData(): void {
-    this.timerSubscription=Observable.timer(5000).first().subscribe(() => this.refreshData());
+      this.timerSubscription=Observable.timer(5000).first().subscribe(() => this.refreshData());
   }
 
   searchByType()
   {
-    this.siemService.getLogsByType(this.typeSearch).subscribe
-    (
-      data => this.searchedLogs = data
-    );
+    if(this.typeSearch == "")
+    {
+      this.loadNewData = true;
+      this.refreshData();
+    }
+    else{
+      this.loadNewData = false;
+      this.siemService.getLogsByType(this.typeSearch).subscribe
+      (
+        data => this.logs = data
+      );
+    }
   }
 
   searchByData()
   {
+    this.loadNewData = false;
     this.siemService.getLogsByDate(new SearchByDateDTO(this.date1, this.date2)).subscribe
     (
-      data => this.searchedLogs = data
+      data => this.logs = data
     );
+  }
+
+  refresh()
+  {
+    this.loadNewData = true;
+    this.typeSearch="";
+    this.regexString="";
+    this.refreshData();
   }
 }

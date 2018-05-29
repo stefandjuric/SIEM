@@ -1,7 +1,7 @@
 package com.example.siem.repository;
 
 import com.example.siem.domain.UserAuthority;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by djuro on 11/29/2017.
@@ -12,5 +12,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 
 
-public interface UserAuthorityRepository extends MongoRepository<UserAuthority,Long> {
+public interface UserAuthorityRepository extends JpaRepository<UserAuthority,Long> {
+
 }

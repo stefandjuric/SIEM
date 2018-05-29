@@ -1,20 +1,25 @@
 package com.example.siem.domain;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User
 {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id" , unique = true, nullable = false)
+    private Integer id;
 
+    @Column(name = "username")
     private String username;
 
     private String password;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
 
     public User() {
@@ -50,9 +55,9 @@ public class User
         this.username = username;
     }
 
-    public String getId() { return this.id; }
+    public Integer getId() { return this.id; }
 
-    public void setId(String id) { this.id = id; }
+    public void setId(Integer id) { this.id = id; }
 
     public void addUserAuthority(UserAuthority userAuthority)
     {

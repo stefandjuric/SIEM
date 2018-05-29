@@ -82,9 +82,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(String userId)
+    public User getUserById(Integer userId)
     {
-        User user = this.userRepository.findById(userId);
+        User user = this.userRepository.getOne(userId);
         return user;
     }
 

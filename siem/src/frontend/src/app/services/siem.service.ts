@@ -22,7 +22,7 @@ export class SiemService {
 
   getLogsByType(type:string)
   {
-    return this.http.get<Log[]>("http://localhost:8080/agent/getLogsByType/"+type);
+    return this.http.get<Log[]>("https://localhost:8443/agent/getLogsByType/"+type);
   }
 
   getLogsByDate(dto:SearchByDateDTO)

@@ -1,27 +1,28 @@
 package com.example.siem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
-@Document(collection = "user_authority")
+@Entity
 public class UserAuthority {
 	@Id
-	private String id;
+	@GeneratedValue
+	private Long id;
 
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private User user;
-	
+
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Authority authority;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -41,19 +42,6 @@ public class UserAuthority {
 		this.authority = authority;
 	}
 
-	/*
-	//ovo je greska vjerovatno
-	public UserAuthority(User user, Authority authority)
-	{
-		this.user = user;
-		this.authority = authority;
-	}
-	*/
 	public UserAuthority() {};
 
-	public UserAuthority(User user, Authority authority)
-	{
-		this.user = user;
-		this.authority = authority;
-	}
 }

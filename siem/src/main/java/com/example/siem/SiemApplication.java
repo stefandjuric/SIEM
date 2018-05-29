@@ -20,18 +20,6 @@ public class SiemApplication implements CommandLineRunner{
 	@Autowired
 	private LogRepository logRepository;
 
-	@Autowired
-	private AdminRepository adminRepository;
-
-	@Autowired
-	private AuthorityRepository authorityRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private UserAuthorityRepository userAuthorityRepository;
-
 	public static void main(String[] args) {
 		SpringApplication.run(SiemApplication.class, args);
 	}
@@ -52,29 +40,36 @@ public class SiemApplication implements CommandLineRunner{
 	@Override
 	public void run(String... strings) throws Exception {
 		logRepository.deleteAll();
-		adminRepository.deleteAll();
-		authorityRepository.deleteAll();
-		userRepository.deleteAll();
-		userAuthorityRepository.deleteAll();
+		//adminRepository.deleteAll();
+		//authorityRepository.deleteAll();
+		//userRepository.deleteAll();
+		//userAuthorityRepository.deleteAll();
 
 
 		Log l = new Log("INFO", "Os is started", null);
+		Log l1 = new Log("WARNING", "Os is stoped", null);
 
-		Admin admin = new Admin(new User("admin", "admin"));
+		//Admin admin = new Admin(new User("admin", "admin"));
 
-		Authority authority = new Authority("ROLE_ADMIN");
+		//Authority authority = new Authority("ROLE_ADMIN");
 
-		User user = new User("$2a$10$S3rxpwjnJUrmgMrnMCJo8eIRCFvCcmzuPi5Y3Okz67i/2sj6xMfau", "a");
+		//User user = new User("a","$2a$10$S3rxpwjnJUrmgMrnMCJo8eIRCFvCcmzuPi5Y3Okz67i/2sj6xMfau");
 
 
 		logRepository.save(l);
-		adminRepository.save(admin);
-		authority = authorityRepository.save(authority);
-		user = userRepository.save(user);
+		logRepository.save(l1);
+		//adminRepository.save(admin);
+		//authority = authorityRepository.save(authority);
+		//user = userRepository.save(user);
+		//UserAuthority userAuthority = new UserAuthority(user, authority);
 
-		UserAuthority userAuthority = new UserAuthority(user, authority);
-
-		userAuthorityRepository.save(userAuthority);
+		//userAuthority = userAuthorityRepository.save(userAuthority);
+		//System.out.println("111111111111");
+		//user.addUserAuthority(userAuthority);
+		//System.out.println("222222222222");
+		//System.out.println(user.getUserAuthorities().size());
+		//userRepository.save(user);
+		//System.out.println("333333333333");
 
 		System.out.println("Logs found with findAll():");
 		System.out.println("-------------------------------");

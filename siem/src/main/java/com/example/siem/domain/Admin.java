@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,10 +15,11 @@ import java.util.Set;
  * Created by Momir on 14.11.2017.
  */
 
+@Entity
 @AllArgsConstructor(suppressConstructorProperties = true)
 @Getter
 @Setter
-@Document(collection = "admin")
+@Table(name = "admin")
 public class Admin extends User {
 
     public Admin(User user)

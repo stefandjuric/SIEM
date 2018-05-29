@@ -19,26 +19,7 @@
       </tr>
     </table>
     </div>
-  </div>
-  <div class="container" ng-app="invoice" *ngIf="searchedLogs!=''">
-    <section class="row" ng-controller="InvoiceController">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of searchedLogs; let i = index">
-          <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
-          <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
-          <td><fieldset disabled=""><input type="number" [(ngModel)]="item.date" class="form-control" /></fieldset></td>
-        </tr>
-        </tbody>
-      </table>
-    </section>
+    <button type="submit" (click)="refresh()"  class="btn btn-primary" id="refresh">Refresh</button>
   </div>
 </div>
 

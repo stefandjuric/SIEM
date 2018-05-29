@@ -1,24 +1,26 @@
 package com.example.siem.domain;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Authority {
 	@Id
-	private String id;
+	@GeneratedValue
+	private Long id;
 
+	@Column(name = "authority_name")
 	String name;
 
+	@OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -36,10 +38,5 @@ public class Authority {
 
 	public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
 		this.userAuthorities = userAuthorities;
-	}
-
-	public Authority(String name)
-	{
-		this.name = name;
 	}
 }
