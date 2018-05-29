@@ -28,9 +28,11 @@ export class NavbarComponent implements OnInit
   {
     this.currentRole = role;
     this.links = [];
-    //............
 
-    //........
+    if (this.currentRole == "ROLE_ADMIN")
+      this.presetAdmin();
+    else if (this.currentRole == "ORDINARY_USER")
+      this.presetUser();
   }
 
 
@@ -39,12 +41,28 @@ export class NavbarComponent implements OnInit
     this.links.push(link);
   }
 
+  presetAdmin()
+  {
+    this.addLink({text: "Add user", routerLink: "/addUser"});
+    this.addLink({text: "All logs", routerLink: "/allLogs"});
+    this.addLink({text: "Logout", routerLink:"/" });
+    //this._router.navigate(['/adminPage']);
+  }
+
+  presetUser()
+  {
+    this.addLink({text: "All logs", routerLink: "/allLogs"});
+    this.addLink({text: "Logout", routerLink:"/" });
+    //this._router.navigate(['/adminPage']);
+  }
+
 
   logout()
   {
     this.links = [];
     this.addLink({text: "Login", routerLink: "/"});
-    this.addLink({text: "All logs", routerLink: "/allLogs"});
+    //this.addLink({text: "All logs", routerLink: "/allLogs"});
+    //this.addLink({text: "Add user", routerLink: "/addUser"});
     LoggedUtils.clearLocalStorage();
   }
 }

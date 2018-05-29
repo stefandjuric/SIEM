@@ -12,6 +12,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent }  from './app.component';
 import {HomeComponent} from "./components/home/home.component";
+import { AddUserComponent } from "./components/addUser/addUser.component";
 
 
 import {SiemComponent} from "./components/siem/siem.component";
@@ -43,7 +44,8 @@ import { routing } from "./app.routes";
 
     HomeComponent,
 
-    SiemComponent
+    SiemComponent,
+    AddUserComponent
   ],
   providers: [
     {

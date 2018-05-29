@@ -62,6 +62,7 @@ public class SiemAgentController
     @RequestMapping(value = "/getLogsByRegex/{regex}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogsByRegex(@PathVariable("regex") String regex)
     {
+        regex = regex.replace('%',' ');
         List<Log> logs = this.siemAgentService.searchByRegex(regex);
         if(logs == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         else return new ResponseEntity<>(logs, HttpStatus.OK);

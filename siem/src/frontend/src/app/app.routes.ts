@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent} from './components/home/home.component';
 import { SiemComponent } from './components/siem/siem.component';
+import { AddUserComponent } from './components/addUser/addUser.component';
 
 const appRoutes : Routes =
   [
@@ -13,6 +14,10 @@ const appRoutes : Routes =
     {
       path : 'allLogs',
       component : SiemComponent
+    },
+    {
+      path : 'addUser',
+      component : AddUserComponent
     },
 
   ];

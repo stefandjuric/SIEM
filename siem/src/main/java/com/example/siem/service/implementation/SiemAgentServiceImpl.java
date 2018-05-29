@@ -86,26 +86,32 @@ public class SiemAgentServiceImpl implements SiemAgentService
     {
         List<Log> logs = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-        String[] parts = regex.split("and");
+        String[] parts = regex.split(" and ");
         Query query = new Query();
+        Boolean criteria=false;
         for(String p : parts)
         {
+            System.out.println("11111111111");
+            System.out.println(p);
             if(p.contains("=="))
             {
                 String[] attributes = p.split("==");
-                if(attributes[0] == "type") { query.addCriteria(Criteria.where("type").is(attributes[1]));}
-                else if(attributes[0] == "description") { query.addCriteria(Criteria.where("description").is(attributes[1])); }
+                System.out.println(attributes[0]);
+                System.out.println(attributes[1]);
+                if(attributes[0].equals("type")) { query.addCriteria(Criteria.where("type").is(attributes[1])); criteria=true; System.out.println(attributes[1]);}
+                else if(attributes[0].equals("description")) { query.addCriteria(Criteria.where("description").is(attributes[1])); criteria=true; System.out.println(attributes[1]);}
                 else return null;
 
             }
             if(p.contains(">"))
             {
                 String[] attributes = p.split(">");
-                if(attributes[0] == "date")
+                if(attributes[0].equals("date"))
                 {
                     try {
 
                         query.addCriteria(Criteria.where("date").gt(formatter.parse(attributes[1])));
+                        criteria=true;
                         //date1 = formatter.parse(attributes[1]);
                     } catch (ParseException e) {
                         return null;
@@ -116,10 +122,11 @@ public class SiemAgentServiceImpl implements SiemAgentService
             if(p.contains("<"))
             {
                 String[] attributes = p.split(">");
-                if(attributes[0] == "date")
+                if(attributes[0].equals("date"))
                 {
                     try {
                         query.addCriteria(Criteria.where("date").lt(formatter.parse(attributes[1])));
+                        criteria=true;
                         //date2 = formatter.parse(attributes[1]);
                     } catch (ParseException e) {
                         return null;
@@ -128,8 +135,7 @@ public class SiemAgentServiceImpl implements SiemAgentService
                 else return null;
             }
         }
-
-        logs = mongoTemplate.find(query, Log.class);
+        if(criteria) logs = mongoTemplate.find(query, Log.class);
         return logs;
 
     }

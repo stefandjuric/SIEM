@@ -23,4 +23,15 @@ export class SearchByDateDTO
   ){}
 }
 
+export class Address
+{
+  constructor( public id:number,
+               public city:string,
+               public number:string,
+               public street:string,
+               public postalCode:string,
+               public country:string,
+  ) {}
+}
+
 

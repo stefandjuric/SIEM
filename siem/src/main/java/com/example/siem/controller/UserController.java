@@ -66,6 +66,7 @@ public class UserController
     @RequestMapping(value = "/api/registerUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody RegisterUserDTO registerUser)
     {
+        System.out.println("usaoooooooooo");
         LoginResponseDTO responseDTO = this.userService.registerUser(registerUser);
         if(responseDTO == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
