@@ -30,6 +30,9 @@ public class SiemApplication implements CommandLineRunner{
 	@Autowired
 	private AlarmRuleRepository alarmRuleRepository;
 
+	@Autowired
+	private AlarmRepository alarmRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SiemApplication.class, args);
 	}
@@ -51,10 +54,12 @@ public class SiemApplication implements CommandLineRunner{
 	public void run(String... strings) throws Exception {
 		logRepository.deleteAll();
 		alarmRuleRepository.deleteAll();
+		alarmRepository.deleteAll();
+
 
 		Log l = new Log("INFO", "Os is started", null);
 		Log l1 = new Log("WARNING", "Os is stoped", null);
-		AlarmRule ar = new AlarmRule("INFO" , null, null, 1, 0, true, false, false);
+		AlarmRule ar = new AlarmRule("ERROR" , null, null, 1, 0, true, false, false);
 
 		logRepository.save(l);
 		logRepository.save(l1);

@@ -1,0 +1,49 @@
+<div class="register">
+  <h3>Add new alarm rule</h3>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck1" checked="" [(ngModel)]="typeEnable">
+    <label class="custom-control-label" for="customCheck1">Type enable</label>
+  </div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck2" checked="" [(ngModel)]="descriptionEnable">
+    <label class="custom-control-label" for="customCheck2">Description enable</label>
+  </div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck3" checked="" [(ngModel)]="ipAddressEnable">
+    <label class="custom-control-label" for="customCheck3">IP address enable</label>
+  </div>
+
+  <div class="form-group" *ngIf="typeEnable==true">
+    <label for="exampleSelect1">Select type</label>
+    <select class="form-control" id="exampleSelect1" [(ngModel)]="type">
+      <option value="ERROR">ERROR</option>
+      <option value="WARNING">WARNING</option>
+      <option value="INFO">INFO</option>
+    </select>
+  </div>
+
+  <div class="form-group" *ngIf="descriptionEnable==true">
+    <label for="des">Description</label>
+    <input type="text" class="form-control" id="des" placeholder="Enter description" name="usr" [(ngModel)]="description" >
+  </div>
+
+  <div class="form-group" *ngIf="ipAddressEnable==true">
+    <label for="ipa">IP address</label>
+    <input type="text" class="form-control" id="ipa" placeholder="Enter IP address" name="usr" [(ngModel)]="ipAddress" >
+  </div>
+
+  <div class="form-group">
+    <label for="rep">Repetition</label>
+    <input type="text" class="form-control" id="rep" placeholder="Enter repetition" name="usr" [(ngModel)]="repetition" >
+  </div>
+
+  <div class="form-group">
+    <label for="min">Minutes</label>
+    <input type="text" class="form-control" id="min" placeholder="Enter minutes" name="usr" [(ngModel)]="minutes" >
+  </div>
+
+  <button type="submit" (click)="addAlarmRule()"  class="btn btn-primary" id="registerButton">Add</button>
+</div>

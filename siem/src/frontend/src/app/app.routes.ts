@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent} from './components/home/home.component';
 import { SiemComponent } from './components/siem/siem.component';
 import { AddUserComponent } from './components/addUser/addUser.component';
+import { AlarmComponent } from "./components/alarm/alarm.component";
+import { AddAlarmRuleComponent } from "./components/addAlarmRule/addAlarmRule.component";
 
 const appRoutes : Routes =
   [
@@ -19,6 +21,14 @@ const appRoutes : Routes =
       path : 'addUser',
       component : AddUserComponent
     },
+    {
+      path : 'allAlarms',
+      component : AlarmComponent
+    },
+    {
+      path : 'addAlarmComponent',
+      component : AddAlarmRuleComponent
+    }
 
   ];
 

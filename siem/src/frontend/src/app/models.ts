@@ -34,4 +34,33 @@ export class Address
   ) {}
 }
 
+export class AlarmRule
+{
+  constructor( public id:string,
+               public type:string,
+               public description:string,
+               public ipAdress:string,
+               public repetition:number,
+               public minutes:number,
+               public typeFlag:boolean,
+               public descriptionFlag:boolean,
+               public ipAddressFlag:boolean
+  ) {}
+}
+
+export class Alarm
+{
+  constructor( public id:string,
+               public alarmType:AlarmRule,
+               public type:string,
+               public description:string,
+               public ipAdress:string,
+               public number:number,
+               public dateOfRepetition:Date[],
+               public active:boolean
+  ) {}
+}
+
+
+
 

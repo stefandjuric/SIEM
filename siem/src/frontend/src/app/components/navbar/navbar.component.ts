@@ -44,7 +44,9 @@ export class NavbarComponent implements OnInit
   presetAdmin()
   {
     this.addLink({text: "Add user", routerLink: "/addUser"});
+    this.addLink({text: "Add alarm rule", routerLink: "/addAlarmComponent"});
     this.addLink({text: "All logs", routerLink: "/allLogs"});
+    this.addLink({text: "All alarms", routerLink: "/allAlarms"});
     this.addLink({text: "Logout", routerLink:"/" });
     //this._router.navigate(['/adminPage']);
   }
