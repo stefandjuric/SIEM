@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Document(collection = "logs")
+@CompoundIndex(def = "{'date':1, 'type':-1}", name = "compound_index")
 public class Log
 {
     @Id
