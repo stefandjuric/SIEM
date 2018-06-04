@@ -16,12 +16,12 @@
     <label class="custom-control-label" for="customCheck3">IP address enable</label>
   </div>
 
-  <div class="custom-control custom-checkbox">
+  <div class="custom-control custom-checkbox" *ngIf="typeEnable==true || descriptionEnable==true || ipAddressEnable==true">
     <input type="checkbox" class="custom-control-input" id="customCheck4" checked="" [(ngModel)]="sameIpAddress">
     <label class="custom-control-label" for="customCheck4">Same IP address</label>
   </div>
 
-  <div class="custom-control custom-checkbox">
+  <div class="custom-control custom-checkbox" *ngIf="typeEnable==true || descriptionEnable==true || ipAddressEnable==true">
     <input type="checkbox" class="custom-control-input" id="customCheck5" checked="" [(ngModel)]="sameUsername">
     <label class="custom-control-label" for="customCheck5">Same username</label>
   </div>

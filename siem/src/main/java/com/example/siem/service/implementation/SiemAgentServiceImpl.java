@@ -307,38 +307,62 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     public void sameIpAddressAndNotUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
     {
+        Boolean flag = false;
         for(Alarm a: notActiveAlarms)
         {
             if(a.getIpAdress().equals(log.getIp())){
+                flag = true;
                 a.addDate(new Date());
                 if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
                 this.alarmRepository.save(a);
             }
         }
+        if(!flag){
+            Alarm alarm = new Alarm(alarmRule, log.getType(), log.getDescription(), log.getIp(), alarmRule.getRepetition(), false );
+            alarm.setUsername(log.getTag());
+            alarm.addDate(new Date());
+            this.alarmRepository.save(alarm);
+        }
     }
 
     public void notIpAddressAndSameUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
     {
+        Boolean flag = false;
         for(Alarm a: notActiveAlarms)
         {
             if(a.getUsername().equals(log.getTag())){
+                flag = true;
                 a.addDate(new Date());
                 if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
                 this.alarmRepository.save(a);
             }
+        }
+        if(!flag){
+            Alarm alarm = new Alarm(alarmRule, log.getType(), log.getDescription(), log.getIp(), alarmRule.getRepetition(), false );
+            alarm.setUsername(log.getTag());
+            alarm.addDate(new Date());
+            this.alarmRepository.save(alarm);
         }
     }
 
 
     public void sameIpAddressAndSameUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
     {
+        Boolean flag = false;
         for(Alarm a: notActiveAlarms)
         {
             if(a.getUsername().equals(log.getTag()) && a.getIpAdress().equals(log.getIp())){
+                flag = true;
                 a.addDate(new Date());
                 if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
                 this.alarmRepository.save(a);
             }
+        }
+        if(!flag){
+            Alarm alarm = new Alarm(alarmRule, log.getType(), log.getDescription(), log.getIp(), alarmRule.getRepetition(), false );
+            alarm.setUsername(log.getTag());
+            alarm.addDate(new Date());
+            this.alarmRepository.save(alarm);
         }
     }
 
