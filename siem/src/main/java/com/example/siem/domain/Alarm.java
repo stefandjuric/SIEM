@@ -38,6 +38,8 @@ public class Alarm {
 
     private Boolean active;
 
+    private String username;
+
     public Alarm(AlarmRule alarmType, String type, String description, String ipAdress,
                  Integer number, Boolean active) {
         this.alarmType = alarmType;
@@ -47,6 +49,7 @@ public class Alarm {
         this.number = number;
         this.dateOfRepetition = new ArrayList<>();
         this.active = active;
+        this.username = "";
     }
 
     public void addDate(Date date)

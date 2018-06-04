@@ -6,6 +6,10 @@ export class Log
                public type:string,
                public description:string,
                public date:Date,
+               public ip:string,
+               public host:string,
+               public facility:string,
+               public tag:string
   ) {}
 }
 
@@ -44,7 +48,9 @@ export class AlarmRule
                public minutes:number,
                public typeFlag:boolean,
                public descriptionFlag:boolean,
-               public ipAddressFlag:boolean
+               public ipAddressFlag:boolean,
+               public sameIpAddress:boolean,
+               public sameUsername:boolean
   ) {}
 }
 
@@ -57,7 +63,8 @@ export class Alarm
                public ipAdress:string,
                public number:number,
                public dateOfRepetition:Date[],
-               public active:boolean
+               public active:boolean,
+               public username:string
   ) {}
 }
 

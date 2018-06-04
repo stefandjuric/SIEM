@@ -36,8 +36,13 @@ public class AlarmRule {
 
     private Boolean ipAddressFlag;
 
+    private Boolean sameIpAddress;
+
+    private Boolean sameUsername;
+
     public AlarmRule(String type, String description, String ipAddress, Integer repetition,
-                     Integer minutes, Boolean typeFlag, Boolean descriptionFlag, Boolean ipAddressFlag){
+                     Integer minutes, Boolean typeFlag, Boolean descriptionFlag,
+                     Boolean ipAddressFlag, Boolean sameIpAddress, Boolean sameUsername){
         this.type = type;
         this.description = description;
         this.ipAddress = ipAddress;
@@ -46,5 +51,7 @@ public class AlarmRule {
         this.typeFlag = typeFlag;
         this.descriptionFlag = descriptionFlag;
         this.ipAddressFlag = ipAddressFlag;
+        this.sameIpAddress = sameIpAddress;
+        this.sameUsername = sameUsername;
     }
 }

@@ -66,8 +66,9 @@ public class SiemAgentServiceImpl implements SiemAgentService
             lines[i] = a[1];
             }
         }
-        Log saved = new Log(lines[0], lines[1], lines[2], lines[3], lines[4], lines[5], lines[6]);
+        Log saved = new Log(lines[0],lines[1],lines[2],lines[3],lines[4],lines[5],lines[6]);
         saved = this.logRepository.save(saved);
+        this.addAlarm(saved);
         return saved;
     }
 
@@ -165,16 +166,182 @@ public class SiemAgentServiceImpl implements SiemAgentService
         List<AlarmRule> alarmRules = this.alarmRuleRepository.findAll();
         for(AlarmRule ar : alarmRules)
         {
-            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && !ar.getIpAddressFlag())
+            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkType(log, ar); //+++
+
+            if(!ar.getTypeFlag() &&  ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkDescription(log, ar);
+
+            if(!ar.getTypeFlag() &&  !ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkIpAddress(log, ar);
+
+            if(ar.getTypeFlag() &&  ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkTypeAndDescription(log, ar);
+
+            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkTypeAndIpAddress(log, ar);
+
+            if(!ar.getTypeFlag() &&  ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkDecriptionAndIpAddress(log, ar);
+
+            if(ar.getTypeFlag() &&  ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkTypeAndDecriptionAndIpAddress(log, ar);
+
+        }
+    }
+
+    public void checkType(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getType().equals(log.getType()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+
+    public void checkDescription(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getDescription().equals(log.getDescription()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+    public void checkIpAddress(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getIpAddress().equals(log.getIp()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+    public void checkTypeAndDescription(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getType().equals(log.getType()) && alarmRule.getDescription().equals(log.getDescription()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+    public void checkTypeAndIpAddress(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getType().equals(log.getType()) && alarmRule.getIpAddress().equals(log.getIp()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+    public void checkDecriptionAndIpAddress(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getDescription().equals(log.getDescription()) && alarmRule.getIpAddress().equals(log.getIp()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+    public void checkTypeAndDecriptionAndIpAddress(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getType().equals(log.getType()) && alarmRule.getDescription().equals(log.getDescription()) && alarmRule.getIpAddress().equals(log.getIp()))
+        {
+            this.checkRepetition(log,alarmRule);
+        }
+    }
+
+
+    public List<Alarm> checkIfActive(List<Alarm> alarms)
+    {
+        List<Alarm> aaa = new ArrayList<>();
+        List<Alarm> forDelete = new ArrayList<>();
+        for(Alarm ar : alarms)
+        {
+            if(!ar.getActive())
             {
-                if(ar.getType().equals(log.getType()))
+                Date date = new Date();
+                if(((date.getTime()) / (60000)) - ((ar.getDateOfRepetition().get(0).getTime())/(6000)) >= ar.getAlarmType().getMinutes())
                 {
-                    System.out.println("usao u addAlarm");
-                    Alarm alarm = new Alarm(ar, log.getType(), log.getDescription(), "172.16.254.1", ar.getRepetition(), true);
-                    alarm.addDate(new Date());
-                    this.alarmRepository.save(alarm);
+                    forDelete.add(ar);
+                }
+                else
+                {
+                    aaa.add(ar);
                 }
             }
         }
+        for(Alarm ar:forDelete)
+        {
+            this.alarmRepository.delete(ar);
+        }
+        return aaa;
     }
+
+    public void checkRepetition(Log log, AlarmRule alarmRule)
+    {
+        if(alarmRule.getRepetition() == 1) {
+            Alarm alarm = new Alarm(alarmRule, log.getType(), log.getDescription(), log.getIp(), alarmRule.getRepetition(), true );
+            alarm.setUsername(log.getTag());
+            alarm.addDate(new Date());
+            this.alarmRepository.save(alarm);
+        }
+        else{
+            List<Alarm> alarms = this.alarmRepository.findByAlarmRule(alarmRule);
+            List<Alarm> notActiveAlarms = checkIfActive(alarms);
+            if(notActiveAlarms.size()==0)
+            {
+                Alarm alarm = new Alarm(alarmRule, log.getType(), log.getDescription(), log.getIp(), alarmRule.getRepetition(), false );
+                alarm.setUsername(log.getTag());
+                alarm.addDate(new Date());
+                this.alarmRepository.save(alarm);
+            }
+            else{
+                if(!alarmRule.getSameIpAddress() && !alarmRule.getSameUsername()) notIpAddressAndNotUsername(log, alarmRule, notActiveAlarms);
+
+                if(alarmRule.getSameIpAddress() && !alarmRule.getSameUsername()) sameIpAddressAndNotUsername(log, alarmRule, notActiveAlarms);
+
+                if(!alarmRule.getSameIpAddress() && alarmRule.getSameUsername()) notIpAddressAndSameUsername(log, alarmRule, notActiveAlarms);
+
+                if(alarmRule.getSameIpAddress() && alarmRule.getSameUsername()) sameIpAddressAndSameUsername(log, alarmRule, notActiveAlarms);
+            }
+        }
+    }
+
+    public void notIpAddressAndNotUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
+    {
+        Alarm alarm = notActiveAlarms.get(0);
+        alarm.addDate(new Date());
+        if(alarm.getDateOfRepetition().size() == alarmRule.getRepetition()) alarm.setActive(true);
+        this.alarmRepository.save(alarm);
+    }
+
+    public void sameIpAddressAndNotUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
+    {
+        for(Alarm a: notActiveAlarms)
+        {
+            if(a.getIpAdress().equals(log.getIp())){
+                a.addDate(new Date());
+                if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
+                this.alarmRepository.save(a);
+            }
+        }
+    }
+
+    public void notIpAddressAndSameUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
+    {
+        for(Alarm a: notActiveAlarms)
+        {
+            if(a.getUsername().equals(log.getTag())){
+                a.addDate(new Date());
+                if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
+                this.alarmRepository.save(a);
+            }
+        }
+    }
+
+
+    public void sameIpAddressAndSameUsername(Log log, AlarmRule alarmRule, List<Alarm> notActiveAlarms)
+    {
+        for(Alarm a: notActiveAlarms)
+        {
+            if(a.getUsername().equals(log.getTag()) && a.getIpAdress().equals(log.getIp())){
+                a.addDate(new Date());
+                if(a.getDateOfRepetition().size() == alarmRule.getRepetition()) a.setActive(true);
+                this.alarmRepository.save(a);
+            }
+        }
+    }
+
+
+
 }

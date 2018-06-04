@@ -8,6 +8,7 @@
         <th>Date</th>
         <th>IP Address</th>
         <th>Repetition</th>
+        <th>Username</th>
       </tr>
       </thead>
       <tbody>
@@ -17,6 +18,7 @@
         <td><fieldset disabled=""><input type="text" class="form-control" value="{{item.dateOfRepetition[0] | date:'hh:mm yyyy-MM-dd'}}" /></fieldset></td>
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.ipAdress" class="form-control" /></fieldset></td>
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.number" class="form-control" /></fieldset></td>
+        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.username" class="form-control" /></fieldset></td>
       </tr>
       </tbody>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>

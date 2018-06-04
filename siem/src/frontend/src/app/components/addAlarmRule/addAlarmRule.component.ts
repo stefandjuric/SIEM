@@ -20,6 +20,8 @@ export class AddAlarmRuleComponent {
   typeEnable:boolean = false;
   descriptionEnable:boolean = false;
   ipAddressEnable:boolean = false;
+  sameIpAddress:boolean = false;
+  sameUsername:boolean = false;
 
   type:string;
   description:string;
@@ -34,7 +36,7 @@ export class AddAlarmRuleComponent {
   addAlarmRule()
   {
     this.alarmService.addAlarmRule(new AlarmRule(null,this.type, this.description, this.ipAddress, this.repetition,
-        this.minutes, this.typeEnable, this.descriptionEnable, this.ipAddressEnable)).subscribe(
+        this.minutes, this.typeEnable, this.descriptionEnable, this.ipAddressEnable, this.sameIpAddress, this.sameUsername)).subscribe(
       data => console.log(data),
     );
   }
