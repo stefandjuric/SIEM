@@ -1,17 +1,21 @@
 package com.example.siem.controller;
 
 import com.example.siem.domain.DTO.SearchByDateDTO;
+import com.example.siem.domain.DTO.SendLogDTO;
 import com.example.siem.domain.Log;
 import com.example.siem.service.SiemAgentService;
+import com.mongodb.util.JSON;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.List;
-
+import java.net.*;
+import org.json.simple.JSONObject;
 /**
  * Created by djuro on 3/31/2018.
  */
@@ -24,16 +28,24 @@ public class SiemAgentController
     @Autowired
     SiemAgentService siemAgentService;
 
-    @RequestMapping(value = "/saveLog", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Log> addLog(@RequestBody String log) throws ParseException {
+    @RequestMapping(value = "/saveLog", method = RequestMethod.POST
+            ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Log> addLog(@RequestBody byte[] s) throws ParseException {
 
-        System.out.println("Usao u post metodu");
+        String s2 = new String(s);
+
+        Log newLog = this.siemAgentService.saveLog(s2);
+        //System.out.println(s2);
+
+        /*Log log = new Log(logDto.getType(),logDto.getDescription(),logDto.getDate(),logDto.getIp(),
+                logDto.getHost(),logDto.getFacility(),logDto.getTag());
         Log logObject = this.siemAgentService.saveLog(log);
         if(logObject == null)
         {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(logObject, HttpStatus.CREATED);
+        */
+        return new ResponseEntity<>(newLog, HttpStatus.CREATED);
     }
 
 

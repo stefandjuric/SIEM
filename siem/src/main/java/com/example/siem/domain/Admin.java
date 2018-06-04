@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor(suppressConstructorProperties = true)
 @Getter
 @Setter
-@Table(name = "admin")
+@Table(name = "admin1")
 public class Admin extends User {
 
     public Admin(User user)

@@ -57,8 +57,10 @@ public class SiemApplication implements CommandLineRunner{
 		alarmRepository.deleteAll();
 
 
-		Log l = new Log("INFO", "Os is started", null);
-		Log l1 = new Log("WARNING", "Os is stoped", null);
+		Log l = new Log("INFO", "Os is started", "2018-04-03 17:51:16","192.168.1.1",
+				"host","facility","tag");
+		Log l1 = new Log("WARNING", "Os is stoped", "2018-04-03 17:51:16","192.1.1.23",
+				"host","facility","tag");
 		AlarmRule ar = new AlarmRule("ERROR" , null, null, 1, 0, true, false, false);
 
 		logRepository.save(l);

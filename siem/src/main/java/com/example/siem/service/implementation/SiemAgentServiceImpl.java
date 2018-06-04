@@ -1,5 +1,6 @@
 package com.example.siem.service.implementation;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.siem.domain.Alarm;
 import com.example.siem.domain.AlarmRule;
 import com.example.siem.domain.Log;
@@ -27,6 +28,8 @@ import java.util.List;
 public class SiemAgentServiceImpl implements SiemAgentService
 {
 
+    private final static  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+
     private LogRepository logRepository;
 
     private MongoTemplate mongoTemplate;
@@ -51,15 +54,20 @@ public class SiemAgentServiceImpl implements SiemAgentService
     @Override
     public Log saveLog(String log) throws ParseException {
 
-        String[] logStr = log.split("#");
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-        String type = logStr[0];
-        String description = logStr[1];
-        Date date = formatter.parse(logStr[2]);
-
-        Log saved = this.logRepository.save(new Log(type, description, date));
-        this.addAlarm(saved);
+        String lines[] = log.split("&");
+        System.out.println(log);
+        for (int i = 0; i < lines.length; i++){
+            lines[i] = lines[i].replace('+', ' ');
+            lines[i] = lines[i].replace("%3A", ":");
+            lines[i] = lines[i].replace("%5B", "{");
+            lines[i] = lines[i].replace("%5D", "}");
+            String[] a =lines[i].split("=");
+            if (a.length >= 2){
+            lines[i] = a[1];
+            }
+        }
+        Log saved = new Log(lines[0], lines[1], lines[2], lines[3], lines[4], lines[5], lines[6]);
+        saved = this.logRepository.save(saved);
         return saved;
     }
 
