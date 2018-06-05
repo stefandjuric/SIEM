@@ -1,12 +1,22 @@
 package com.example.siem.service.implementation;
 
 import com.example.siem.domain.*;
+import com.example.siem.domain.DTO.ChangePasswordDTO;
 import com.example.siem.domain.DTO.LoginRequestDTO;
 import com.example.siem.domain.DTO.LoginResponseDTO;
 import com.example.siem.domain.DTO.RegisterUserDTO;
 import com.example.siem.repository.*;
+import com.example.siem.security.TokenUtils;
 import com.example.siem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +44,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     OrdinaryUserRepository odOrdinaryUserRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    TokenUtils tokenUtils;
 
 
     @Override
@@ -94,6 +113,33 @@ public class UserServiceImpl implements UserService {
         User user = null;
         user = this.userRepository.findByUsername(username);
         return user;
+    }
+
+    @Override
+    public LoginResponseDTO changePassord(ChangePasswordDTO changePasswordDTO)
+    {
+        User user = null;
+        user = this.userRepository.findOne(changePasswordDTO.getUserId());
+        if(user!=null)
+        {
+            try {
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                        user.getUsername(), changePasswordDTO.getOldPassword());
+                Authentication authentication = authenticationManager.authenticate(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                UserDetails details = userDetailsService.loadUserByUsername(user.getUsername());
+                String userToken = tokenUtils.generateToken(details);
+                user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+                this.userRepository.save(user);
+                String userToken1 = tokenUtils.generateToken(details);
+                return new LoginResponseDTO(userToken1, user.getId(),user.getUsername(),user.getUserAuthorities().iterator().next().getAuthority().getName());
+            } catch (Exception ex) {
+               return null;
+            }
+        }
+        else{
+            return null;
+        }
     }
 
 }

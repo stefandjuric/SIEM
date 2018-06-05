@@ -6,6 +6,7 @@ import { SiemComponent } from './components/siem/siem.component';
 import { AddUserComponent } from './components/addUser/addUser.component';
 import { AlarmComponent } from "./components/alarm/alarm.component";
 import { AddAlarmRuleComponent } from "./components/addAlarmRule/addAlarmRule.component";
+import { ChangePassword } from "./components/changePassword/changePassword.component";
 
 const appRoutes : Routes =
   [
@@ -28,6 +29,10 @@ const appRoutes : Routes =
     {
       path : 'addAlarmComponent',
       component : AddAlarmRuleComponent
+    },
+    {
+      path : 'changePassword',
+      component : ChangePassword
     }
 
   ];

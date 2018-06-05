@@ -166,19 +166,19 @@ public class SiemAgentServiceImpl implements SiemAgentService
         List<AlarmRule> alarmRules = this.alarmRuleRepository.findAll();
         for(AlarmRule ar : alarmRules)
         {
-            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkType(log, ar); //+++
+            if(ar.getTypeFlag() &&  !ar.getDescriptionFlag() && !ar.getIpAddressFlag()) this.checkType(log, ar); //+++
 
-            if(!ar.getTypeFlag() &&  ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkDescription(log, ar);
+            if(!ar.getTypeFlag() &&  ar.getDescriptionFlag() && !ar.getIpAddressFlag()) this.checkDescription(log, ar);
 
-            if(!ar.getTypeFlag() &&  !ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkIpAddress(log, ar);
+            if(!ar.getTypeFlag() &&  !ar.getDescriptionFlag() && ar.getIpAddressFlag()) this.checkIpAddress(log, ar);
 
-            if(ar.getTypeFlag() &&  ar.getIpAddressFlag() && !ar.getIpAddressFlag()) this.checkTypeAndDescription(log, ar);
+            if(ar.getTypeFlag() &&  ar.getDescriptionFlag() && !ar.getIpAddressFlag()) this.checkTypeAndDescription(log, ar);
 
-            if(ar.getTypeFlag() &&  !ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkTypeAndIpAddress(log, ar);
+            if(ar.getTypeFlag() &&  !ar.getDescriptionFlag() && ar.getIpAddressFlag()) this.checkTypeAndIpAddress(log, ar);
 
-            if(!ar.getTypeFlag() &&  ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkDecriptionAndIpAddress(log, ar);
+            if(!ar.getTypeFlag() &&  ar.getDescriptionFlag() && ar.getIpAddressFlag()) this.checkDecriptionAndIpAddress(log, ar);
 
-            if(ar.getTypeFlag() &&  ar.getIpAddressFlag() && ar.getIpAddressFlag()) this.checkTypeAndDecriptionAndIpAddress(log, ar);
+            if(ar.getTypeFlag() &&  ar.getDescriptionFlag() && ar.getIpAddressFlag()) this.checkTypeAndDecriptionAndIpAddress(log, ar);
 
         }
     }
@@ -194,8 +194,14 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     public void checkDescription(Log log, AlarmRule alarmRule)
     {
+        System.out.println("//////////////////////////////////////////////////");
+        System.out.println(alarmRule.getDescription());
+        System.out.println(log.getDescription());
         if(alarmRule.getDescription().equals(log.getDescription()))
         {
+            System.out.println("---------------------------------------");
+            System.out.println(log.getDescription()); //--------------------------------------------------
+            System.out.println("---------------------------------------");
             this.checkRepetition(log,alarmRule);
         }
     }

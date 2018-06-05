@@ -9,16 +9,33 @@
         <th>IP Address</th>
         <th>Repetition</th>
         <th>Username</th>
+        <th>Same IP address</th>
+        <th>Same username</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of alarms | paginate: {itemsPerPage:5, currentPage: p}">
-        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
-        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.typeFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.typeFlag==false"><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
+
+        <td *ngIf="item.alarmType.descriptionFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.descriptionFlag==false"><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+
         <td><fieldset disabled=""><input type="text" class="form-control" value="{{item.dateOfRepetition[0] | date:'hh:mm yyyy-MM-dd'}}" /></fieldset></td>
-        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.ipAdress" class="form-control" /></fieldset></td>
+
+
+        <td *ngIf="item.alarmType.ipAddressFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.ipAdress" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.ipAddressFlag==false"><fieldset disabled=""><input type="text" [(ngModel)]="item.ipAdress" class="form-control" /></fieldset></td>
+
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.number" class="form-control" /></fieldset></td>
         <td><fieldset disabled=""><input type="text" [(ngModel)]="item.username" class="form-control" /></fieldset></td>
+
+        <td *ngIf="item.alarmType.sameIpAddress==true"><span class="badge badge-danger">{{item.alarmType.sameIpAddress}}</span></td>
+        <td *ngIf="item.alarmType.sameIpAddress==false"><span class="badge badge-dark">{{item.alarmType.sameIpAddress}}</span></td>
+
+        <td *ngIf="item.alarmType.sameUsername==true"><span class="badge badge-danger">{{item.alarmType.sameUsername}}</span></td>
+        <td *ngIf="item.alarmType.sameUsername==false"><span class="badge badge-dark">{{item.alarmType.sameUsername}}</span></td>
+
       </tr>
       </tbody>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>

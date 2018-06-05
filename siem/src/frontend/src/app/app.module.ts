@@ -15,6 +15,7 @@ import {HomeComponent} from "./components/home/home.component";
 import { AddUserComponent } from "./components/addUser/addUser.component";
 import { AlarmComponent } from "./components/alarm/alarm.component";
 import { AddAlarmRuleComponent } from "./components/addAlarmRule/addAlarmRule.component";
+import { ChangePassword } from "./components/changePassword/changePassword.component";
 
 
 import {SiemComponent} from "./components/siem/siem.component";
@@ -49,7 +50,8 @@ import { routing } from "./app.routes";
     SiemComponent,
     AddUserComponent,
     AlarmComponent,
-    AddAlarmRuleComponent
+    AddAlarmRuleComponent,
+    ChangePassword
   ],
   providers: [
     {

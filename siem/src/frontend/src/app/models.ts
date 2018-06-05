@@ -68,6 +68,15 @@ export class Alarm
   ) {}
 }
 
+export class ChangePasswordDTO
+{
+  constructor( public userId:number,
+               public role:string,
+               public oldPassword:string,
+               public newPassword:string
+  ) {}
+}
+
 
 
 

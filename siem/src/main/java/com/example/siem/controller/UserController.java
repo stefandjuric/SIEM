@@ -1,5 +1,6 @@
 package com.example.siem.controller;
 
+import com.example.siem.domain.DTO.ChangePasswordDTO;
 import com.example.siem.domain.DTO.LoginRequestDTO;
 import com.example.siem.domain.DTO.LoginResponseDTO;
 import com.example.siem.domain.DTO.RegisterUserDTO;
@@ -72,6 +73,16 @@ public class UserController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
             return new ResponseEntity<>(registerUser, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/user/changePassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO)
+    {
+        LoginResponseDTO user = this.userService.changePassord(changePasswordDTO);
+        if(user == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
 }

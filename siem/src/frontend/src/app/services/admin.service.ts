@@ -3,7 +3,7 @@ import { Http, HttpModule } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { Address } from "../models";
+import { Address, ChangePasswordDTO } from "../models";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'content-type': 'application/json' })
@@ -22,6 +22,12 @@ export class AdminService
     let param = JSON.stringify(registerRequest);
     return this.http.post("https://localhost:8443/api/registerUser", param, httpOptions);
 
+  }
+
+  changePassword(dto:ChangePasswordDTO)
+  {
+    let param = JSON.stringify(dto);
+    return this.http.post("https://localhost:8443/user/changePassword", param, httpOptions);
   }
 
 }
