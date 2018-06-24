@@ -44,9 +44,22 @@ export class AddUserComponent  {
 
   register()
   {
-    this.adminService.registerUser(this.usr, this.password, this.userType, this.firstname, this.lastname, this.institutionName,
-      new Address(null,this.city, this.buildingNumber, this.buildingStreet, this.postalCode, this.country), this.firmName, this.firmDescription).subscribe(
-      data => console.log(data),
-    );
+    //
+
+    let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
+    // AsD12#5f <- primer validne lozinke
+    if(!re.test(this.password)){
+
+      document.getElementById("reg").innerHTML = "<div class=\"alert alert-danger col-sm-offset-8 col-sm-8\"> Password should be at least 8 characters, contain at least one number, contain at least one upper and lower case letter, contain at least one special character </div>";
+    }
+    else {
+      document.getElementById("reg").innerHTML = "<div class=\"alert alert-success col-sm-offset-8 col-sm-8\"> You have been successfully registered  </div>";
+      this.adminService.registerUser(this.usr, this.password, this.userType, this.firstname, this.lastname, this.institutionName,
+        new Address(null,this.city, this.buildingNumber, this.buildingStreet, this.postalCode, this.country), this.firmName, this.firmDescription).subscribe(
+        data => console.log(data),
+      );
+    }
+
+
   }
 }

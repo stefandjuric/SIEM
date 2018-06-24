@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from "../../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,7 @@ export class HomeComponent
   private usr: string;
   private password: string;
 
-  constructor(private authenticationService: AuthenticationService)
+  constructor(private authenticationService: AuthenticationService,private router:Router)
   {
     this.usr = "";
     this.password = "";
@@ -34,6 +35,11 @@ export class HomeComponent
   callEmitter()
   {
     this.authenticationService.emitRole(this.usr);
+
+    setTimeout(() => {
+        this.router.navigate(['/allLogs']);
+      },
+      1000);
   }
 
   badInput()
