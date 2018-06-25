@@ -32,20 +32,30 @@ public class Alarm {
 
     private String ipAdress;
 
+    private Date date;
+
+    private String host;
+
+    private String facility;
+
+    private String username;
+
     private Integer number;
 
     private List<Date> dateOfRepetition;
 
     private Boolean active;
 
-    private String username;
 
     public Alarm(AlarmRule alarmType, String type, String description, String ipAdress,
-                 Integer number, Boolean active) {
+                 Integer number, Boolean active, Date date, String host, String facility) {
         this.alarmType = alarmType;
         this.type = type;
         this.description = description;
         this.ipAdress = ipAdress;
+        this.date = date;
+        this.host = host;
+        this.facility = facility;
         this.number = number;
         this.dateOfRepetition = new ArrayList<>();
         this.active = active;

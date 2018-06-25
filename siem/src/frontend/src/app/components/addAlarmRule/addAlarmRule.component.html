@@ -1,6 +1,7 @@
 <div class="register">
   <h3>Add new alarm rule</h3>
 
+  <div class="jumbotron">
   <div class="custom-control custom-checkbox">
     <input type="checkbox" class="custom-control-input" id="customCheck1" checked="" [(ngModel)]="typeEnable">
     <label class="custom-control-label" for="customCheck1">Type enable</label>
@@ -16,14 +17,62 @@
     <label class="custom-control-label" for="customCheck3">IP address enable</label>
   </div>
 
-  <div class="custom-control custom-checkbox" *ngIf="typeEnable==true || descriptionEnable==true || ipAddressEnable==true">
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck6" checked="" [(ngModel)]="dateEnable">
+    <label class="custom-control-label" for="customCheck6">Date enable</label>
+  </div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck7" checked="" [(ngModel)]="usernameEnable">
+    <label class="custom-control-label" for="customCheck7">Username enable</label>
+  </div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck8" checked="" [(ngModel)]="hostEnable">
+    <label class="custom-control-label" for="customCheck8">Host enable</label>
+  </div>
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="customCheck9" checked="" [(ngModel)]="facilityEnable">
+    <label class="custom-control-label" for="customCheck9">Facility enable</label>
+  </div>
+  </div>
+
+  <div class="jumbotron">
+  <div class="custom-control custom-checkbox" *ngIf="ipAddressEnable==false">
     <input type="checkbox" class="custom-control-input" id="customCheck4" checked="" [(ngModel)]="sameIpAddress">
     <label class="custom-control-label" for="customCheck4">Same IP address</label>
   </div>
 
-  <div class="custom-control custom-checkbox" *ngIf="typeEnable==true || descriptionEnable==true || ipAddressEnable==true">
+  <div class="custom-control custom-checkbox" *ngIf="usernameEnable==false">
     <input type="checkbox" class="custom-control-input" id="customCheck5" checked="" [(ngModel)]="sameUsername">
     <label class="custom-control-label" for="customCheck5">Same username</label>
+  </div>
+
+  <div class="custom-control custom-checkbox" *ngIf="typeEnable==false">
+    <input type="checkbox" class="custom-control-input" id="customCheck10" checked="" [(ngModel)]="sameType">
+    <label class="custom-control-label" for="customCheck10">Same type</label>
+  </div>
+
+  <div class="custom-control custom-checkbox" *ngIf="descriptionEnable==false">
+    <input type="checkbox" class="custom-control-input" id="customCheck11" checked="" [(ngModel)]="sameDescription">
+    <label class="custom-control-label" for="customCheck11">Same description</label>
+  </div>
+
+  <div class="custom-control custom-checkbox" *ngIf="dateEnable==false">
+    <input type="checkbox" class="custom-control-input" id="customCheck12" checked="" [(ngModel)]="sameDate">
+    <label class="custom-control-label" for="customCheck12">Same date</label>
+  </div>
+
+  <div class="custom-control custom-checkbox" *ngIf="hostEnable==false">
+    <input type="checkbox" class="custom-control-input" id="customCheck13" checked="" [(ngModel)]="sameHost">
+    <label class="custom-control-label" for="customCheck13">Same host</label>
+  </div>
+
+  <div class="custom-control custom-checkbox" *ngIf="facilityEnable==false">
+    <input type="checkbox" class="custom-control-input" id="customCheck14" checked="" [(ngModel)]="sameFacility">
+    <label class="custom-control-label" for="customCheck14">Same facility</label>
+  </div>
   </div>
 
   <div class="form-group" *ngIf="typeEnable==true">
@@ -43,6 +92,26 @@
   <div class="form-group" *ngIf="ipAddressEnable==true">
     <label for="ipa">IP address</label>
     <input type="text" class="form-control" id="ipa" placeholder="Enter IP address" name="usr" [(ngModel)]="ipAddress" >
+  </div>
+
+  <div class="form-group" *ngIf="usernameEnable==true">
+    <label for="usr">Username</label>
+    <input type="text" class="form-control" id="usr" placeholder="Enter username" name="usr" [(ngModel)]="username" >
+  </div>
+
+  <div class="form-group" *ngIf="hostEnable==true">
+    <label for="host">Host</label>
+    <input type="text" class="form-control" id="host" placeholder="Enter host" name="usr" [(ngModel)]="host" >
+  </div>
+
+  <div class="form-group" *ngIf="facilityEnable==true">
+    <label for="fac">Facility</label>
+    <input type="text" class="form-control" id="fac" placeholder="Enter facility" name="usr" [(ngModel)]="facility" >
+  </div>
+
+  <div class="form-group" *ngIf="dateEnable==true">
+    <label for="dat">Date</label>
+    <input type="date" class="form-control" id="dat" placeholder="Enter date" name="usr" [(ngModel)]="date" >
   </div>
 
   <div class="form-group">

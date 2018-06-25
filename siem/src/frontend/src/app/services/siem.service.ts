@@ -33,6 +33,7 @@ export class SiemService {
 
   getLogsByRegex(regex:string)
   {
-    return this.http.get<Log[]>("https://localhost:8443/agent/getLogsByRegex/"+regex);
+    var param = JSON.stringify(regex);
+    return this.http.post<Log[]>("https://localhost:8443/agent/getLogsByRegex",param, httpOptions);
   }
 }

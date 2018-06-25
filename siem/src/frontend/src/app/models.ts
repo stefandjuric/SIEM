@@ -44,13 +44,26 @@ export class AlarmRule
                public type:string,
                public description:string,
                public ipAdress:string,
+               public date:Date,
+               public host:string,
+               public facility:string,
+               public username:string,
                public repetition:number,
                public minutes:number,
                public typeFlag:boolean,
                public descriptionFlag:boolean,
                public ipAddressFlag:boolean,
+               public dateFlag:boolean,
+               public hostFlag:boolean,
+               public facilityFlag:boolean,
+               public usernameFlag:boolean,
                public sameIpAddress:boolean,
-               public sameUsername:boolean
+               public sameUsername:boolean,
+               public sameType:boolean,
+               public sameDescription:boolean,
+               public sameDate:boolean,
+               public sameHost:boolean,
+               public sameFacility:boolean
   ) {}
 }
 
