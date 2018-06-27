@@ -1,0 +1,72 @@
+<div class="container" ng-app="invoice">
+  <section class="row" ng-controller="InvoiceController">
+    <div *ngIf="agentsVisible" class="form-group">
+      <label for="exampleSelect1">Select level:</label>
+      <select   class="form-control" id="exampleSelect1" [(ngModel)]="selectedLevel">
+          <option *ngFor="let item of levels">{{item}}</option>
+        </select>
+    </div>
+    <table class="table table-hover" *ngIf="agentsVisible">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Batch</th>
+        <th>Info</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of agents | paginate: {itemsPerPage:5, currentPage: p}">
+        <td *ngIf="item.level.includes(selectedLevel)"><fieldset disabled=""><input type="text" [(ngModel)]="item.name" class="form-control" /></fieldset></td>
+        <td *ngIf="item.level.includes(selectedLevel)"><fieldset disabled=""><input type="text" [(ngModel)]="item.role" class="form-control" /></fieldset></td>
+        <td *ngIf="item.level.includes(selectedLevel)"><fieldset disabled=""><input type="text" [(ngModel)]="item.batch" class="form-control" /></fieldset></td>
+        <td *ngIf="item.level.includes(selectedLevel)"><input type="button" class="form-control" value="INFO" (click)="editAgent(item.id)"/></td>
+      </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </table>
+  </section>
+  <div *ngIf="!agentsVisible" class="edit">
+    <div *ngIf="!agentsVisible">
+      <label for="rep">File paths:</label>
+      <select *ngIf="!addFilePath" class="form-control" id="exampleSelect2" [(ngModel)]="agent.filePaths">
+        <option *ngFor="let item of agent.filePaths">{{item}}</option>
+      </select>
+      <input *ngIf="addFilePath" type="input" [(ngModel)]="newFilePath">
+      <input *ngIf="!addFilePath" type="button" value="Add file path" (click)="addNewFilePath()">
+      <input *ngIf="!addFilePath" type="button" value="Delete file path">
+      <input *ngIf="addFilePath" type="button" value="Confirm" (click)="confirm()">
+      <input *ngIf="addFilePath" type="button" value="Cancel" (click)="cancel()">
+    </div>
+    <div class="form-group" *ngIf="!agentsVisible">
+      <label for="rep">Name:</label>
+      <input type="text" class="form-control" id="rep" placeholder="Enter repetition" name="usr" [(ngModel)]="agent.name" >
+    </div>
+    <div class="form-group" *ngIf="!agentsVisible">
+      <label for="min">Batch:</label>
+      <input type="text" class="form-control" id="min" placeholder="Enter minutes" name="usr" [(ngModel)]="agent.batch" >
+    </div>
+    <div *ngIf="!agentsVisible">
+      <label for="rep">Types:</label>
+      <select   class="form-control" id="exampleSelect3" [(ngModel)]="agent.types">
+        <option *ngFor="let item of agent.types">{{item}}</option>
+      </select>
+      <input type="button" value="Add type">
+      <input type="button" value="Delete type">
+    </div>
+    <div *ngIf="!agentsVisible">
+      <label for="rep">Enabled:</label>
+      <select   class="form-control" id="exampleSelect4" [(ngModel)]="agent.enabled">
+        <option >TRUE</option>
+        <option>FALSE</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="!agentsVisible">
+      <label for="min">Role:</label>
+      <input type="text" class="form-control" id="role" name="usr" [(ngModel)]="agent.role" >
+    </div>
+    <div class="form-group" *ngIf="!agentsVisible">
+      <input type="button" value="Edit">
+    </div>
+  </div>
+</div>

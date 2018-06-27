@@ -1,0 +1,9 @@
+.edit {
+  position: absolute;
+  width: 500px;
+  height: 100px;
+  z-index: 15;
+  top: 30%;
+  left: 20%;
+  margin: -100px 0 0 -150px;
+}

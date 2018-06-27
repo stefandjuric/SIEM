@@ -1,9 +1,11 @@
 package com.example.siem.service.implementation;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.example.siem.domain.AgentData;
 import com.example.siem.domain.Alarm;
 import com.example.siem.domain.AlarmRule;
 import com.example.siem.domain.Log;
+import com.example.siem.repository.AgentDataRepository;
 import com.example.siem.repository.AlarmRepository;
 import com.example.siem.repository.AlarmRuleRepository;
 import com.example.siem.repository.LogRepository;
@@ -38,16 +40,20 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     private AlarmRepository alarmRepository;
 
+    private AgentDataRepository agentDataRepository;
+
     @Autowired
     public SiemAgentServiceImpl(LogRepository logRepository,
                                 MongoTemplate mongoTemplate,
                                 AlarmRuleRepository alarmRuleRepository,
-                                AlarmRepository alarmRepository)
+                                AlarmRepository alarmRepository,
+                                AgentDataRepository agentDataRepository)
     {
         this.logRepository = logRepository;
         this.mongoTemplate = mongoTemplate;
         this.alarmRuleRepository = alarmRuleRepository;
         this.alarmRepository = alarmRepository;
+        this.agentDataRepository = agentDataRepository;
 
     }
 
@@ -159,6 +165,41 @@ public class SiemAgentServiceImpl implements SiemAgentService
         if(criteria) logs = mongoTemplate.find(query, Log.class);
         return logs;
 
+    }
+
+    @Override
+    public void saveAgentInformation(String information) {
+        information = information.replace('+', ' ');
+        information = information.replace("%3A", ":");
+        information = information.replace("%5B", "{");
+        information = information.replace("%5D", "}");
+        information = information.replace( "%5C", "/");
+        information = information.replace( "%2C", ",");
+        String[] elements = information.split("&");
+        AgentData ad = new AgentData();
+        ad.setName(elements[0].split("=")[1]);
+        String filePaths = elements[1].split("=")[1];
+        ad.setFilePaths(filePaths.split(","));
+        String types = elements[2].split("=")[1];
+        ad.setTypes(types.split(","));
+        ad.setEnabled(Boolean.parseBoolean(elements[3].split("=")[1]));
+        ad.setRole(elements[4].split("=")[1]);
+        String ports = elements[5].split("=")[1];
+        ad.setPorts(ports.split(","));
+        ad.setPort(elements[6].split("=")[1]);
+        ad.setBatch(elements[7].split("=")[1]);
+        ad.setLevel(elements[8].split("=")[1]);
+        agentDataRepository.save(ad);
+    }
+
+    @Override
+    public List<AgentData> getAllAgents() {
+        return agentDataRepository.findAll();
+    }
+
+    @Override
+    public AgentData getAgent(String id) {
+        return agentDataRepository.findOne(id);
     }
 
     public void addAlarm(Log log)

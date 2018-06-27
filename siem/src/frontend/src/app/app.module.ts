@@ -16,7 +16,7 @@ import { AddUserComponent } from "./components/addUser/addUser.component";
 import { AlarmComponent } from "./components/alarm/alarm.component";
 import { AddAlarmRuleComponent } from "./components/addAlarmRule/addAlarmRule.component";
 import { ChangePassword } from "./components/changePassword/changePassword.component";
-
+import { AgentManagerComponent} from "./components/agentManager/agentManager.component";
 
 import {SiemComponent} from "./components/siem/siem.component";
 
@@ -51,7 +51,8 @@ import { routing } from "./app.routes";
     AddUserComponent,
     AlarmComponent,
     AddAlarmRuleComponent,
-    ChangePassword
+    ChangePassword,
+    AgentManagerComponent
   ],
   providers: [
     {

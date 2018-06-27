@@ -1,8 +1,8 @@
 package com.example.siem.domain.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+        import lombok.AllArgsConstructor;
+        import lombok.Getter;
+        import lombok.Setter;
 
 /**
  * Created by djuro on 11/4/2017.

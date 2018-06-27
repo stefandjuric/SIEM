@@ -48,6 +48,7 @@ export class NavbarComponent implements OnInit
     this.addLink({text: "All logs", routerLink: "/allLogs"});
     this.addLink({text: "All alarms", routerLink: "/allAlarms"});
     this.addLink({text: "Change password", routerLink: "/changePassword"});
+    this.addLink({text: "Agents", routerLink: "/agents"})
     this.addLink({text: "Logout", routerLink:"/" });
     //this._router.navigate(['/adminPage']);
   }

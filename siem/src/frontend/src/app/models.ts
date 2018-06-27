@@ -68,6 +68,25 @@ export class Alarm
   ) {}
 }
 
+
+export class AgentData {
+  constructor( public id:string,
+               public filePaths:string[],
+               public types:string[],
+               public enabled:boolean,
+               public role:string,
+               public ports:string[],
+               public port:string,
+               public name:string,
+               public batch:string,
+               public level:string
+  ) {}
+}
+
+
+
+
+
 export class ChangePasswordDTO
 {
   constructor( public userId:number,

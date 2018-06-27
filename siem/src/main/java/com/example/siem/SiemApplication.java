@@ -33,6 +33,9 @@ public class SiemApplication implements CommandLineRunner{
 	@Autowired
 	private AlarmRepository alarmRepository;
 
+	@Autowired
+	private AgentDataRepository agentDataRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SiemApplication.class, args);
 	}
@@ -55,6 +58,7 @@ public class SiemApplication implements CommandLineRunner{
 		logRepository.deleteAll();
 		alarmRuleRepository.deleteAll();
 		alarmRepository.deleteAll();
+		agentDataRepository.deleteAll();
 
 
 		Log l = new Log("INFO", "Os is started", "2018-04-03 17:51:16","192.168.1.1",

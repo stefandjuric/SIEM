@@ -1,5 +1,7 @@
 package com.example.siem.controller;
 
+import com.example.siem.domain.AgentData;
+import com.example.siem.domain.Alarm;
 import com.example.siem.domain.DTO.SearchByDateDTO;
 import com.example.siem.domain.DTO.SendLogDTO;
 import com.example.siem.domain.Log;
@@ -78,5 +80,33 @@ public class SiemAgentController
         if(logs == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         else return new ResponseEntity<>(logs, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/sendAgentData", method = RequestMethod.POST
+            ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> sendAgentData(@RequestBody byte[] s) throws ParseException {
+
+        String s2 = new String(s);
+
+        this.siemAgentService.saveAgentInformation(s2);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/getAgents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AgentData>> getAgents()
+    {
+        List<AgentData> agents = this.siemAgentService.getAllAgents();
+        return new ResponseEntity<>(agents, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAgent/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AgentData> getAgent(@PathVariable("id") String id)
+    {
+        AgentData ad = this.siemAgentService.getAgent(id);
+        return new ResponseEntity<>(ad, HttpStatus.OK);
+    }
+
+
 }
 
