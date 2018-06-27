@@ -72,7 +72,7 @@ public class SiemAgentServiceImpl implements SiemAgentService
             lines[i] = a[1];
             }
         }
-        Log saved = new Log(lines[0],lines[1],lines[2],lines[3],lines[4],lines[5],lines[6]);
+        Log saved = new Log(lines[0],lines[1],lines[2],lines[3],lines[4],lines[5],lines[6], null); // dodati agent name
         saved = this.logRepository.save(saved);
         this.addAlarm(saved);
         return saved;
@@ -332,6 +332,23 @@ public class SiemAgentServiceImpl implements SiemAgentService
         AgentData saved = this.agentDataRepository.save(agentData);
         return saved;
     }
+
+
+    public AgentData getAgentDataByName(String agentName)
+    {
+        List<AgentData> agentDatas = this.agentDataRepository.findAll();
+        AgentData agentData = null;
+        for(AgentData ad : agentDatas)
+        {
+            if(ad.getName().equals(agentName))
+            {
+                if(agentData == null) agentData = ad;
+                break;
+            }
+        }
+        return agentData;
+    }
+
 
 
 

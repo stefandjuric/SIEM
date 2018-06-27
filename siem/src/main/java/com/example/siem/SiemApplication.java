@@ -64,9 +64,9 @@ public class SiemApplication implements CommandLineRunner{
 
 
 		Log l = new Log("INFO", "Os is started", "2018-04-03 17:51:16","192.168.1.1",
-				"host","facility","tag");
+				"host","facility","tag", "aaa");
 		Log l1 = new Log("WARNING", "Os is stoped", "2018-04-03 17:51:16","192.1.1.23",
-				"host","facility","tag");
+				"host","facility","tag","bbb");
 		AlarmRule ar = new AlarmRule("ERROR" , null, null, null, null,
 				null, null, 1, 0, true, false,
 				false, false, false, false, false,
