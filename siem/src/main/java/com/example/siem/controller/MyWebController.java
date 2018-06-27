@@ -1,6 +1,8 @@
 package com.example.siem.controller;
 
 import com.example.siem.domain.AgentData;
+import com.example.siem.service.SiemAgentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,26 +24,32 @@ public class MyWebController {
 
     private Boolean eventFlag = false;
 
+    @Autowired
+    SiemAgentService siemAgentService;
+
     @RequestMapping("/sseTest")
     public SseEmitter handleRequest () {
 
         final SseEmitter emitter = new SseEmitter();
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
-            for (int i = 0; i < 500; i++) {
-                try {
-                    emitter.send(LocalTime.now().toString() , MediaType.TEXT_PLAIN);
+            while(true){
+                if(eventFlag)
+                {
+                    try
+                    {
+                        AgentData agentData = new AgentData();
+                        emitter.send(agentData , MediaType.APPLICATION_JSON);
+                        this.eventFlag = false;
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                        emitter.completeWithError(e);
+                        return;
+                    }
 
-                    Thread.sleep(200);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    emitter.completeWithError(e);
-                    return;
                 }
             }
-            emitter.complete();
         });
-
         return emitter;
     }
 
@@ -50,7 +58,9 @@ public class MyWebController {
     public void handleEvent (RequestHandledEvent e) {
         String[] parts = e.getDescription().split(";");
         String url=(parts[0].split("="))[1].replace("[","").replace("]","");
-        //if(url.equals("/addAgentData"))
-
+        if(url.equals("/addAgentData"))
+        {
+            this.eventFlag = true;
+        }
     }
 }
