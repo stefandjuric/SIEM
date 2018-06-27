@@ -25,4 +25,9 @@ export class AlarmService {
     let param = JSON.stringify(alarmRule);
     return this.http.post<AlarmRule>("https://localhost:8443/alarm/addAlarmRule", param, httpOptions);
   }
+
+  getAllAlarmRules()
+  {
+    return this.http.get<AlarmRule[]>("https://localhost:8443/alarm/getAllAlarmRules");
+  }
 }

@@ -21,6 +21,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class SiemApplication implements CommandLineRunner{
 
@@ -65,7 +67,11 @@ public class SiemApplication implements CommandLineRunner{
 				"host","facility","tag");
 		Log l1 = new Log("WARNING", "Os is stoped", "2018-04-03 17:51:16","192.1.1.23",
 				"host","facility","tag");
-		AlarmRule ar = new AlarmRule("ERROR" , null, null, 1, 0, true, false, false, false, false);
+		AlarmRule ar = new AlarmRule("ERROR" , null, null, null, null,
+				null, null, 1, 0, true, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false);
 
 		logRepository.save(l);
 		logRepository.save(l1);

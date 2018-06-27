@@ -53,4 +53,12 @@ public class AlarmController
         return new ResponseEntity<>(alarms, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getAllAlarmRules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AlarmRule>> getAllAlarmRules()
+    {
+        List<AlarmRule> alarmRules = this.alarmRuleService.getAllAlarmRule();
+        return new ResponseEntity<>(alarmRules, HttpStatus.OK);
+    }
+
+
 }

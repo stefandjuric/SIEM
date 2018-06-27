@@ -1,0 +1,55 @@
+<div class="container" ng-app="invoice">
+  <section class="row" ng-controller="InvoiceController">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="text-center">Type</th>
+        <th class="text-center">Description</th>
+        <th class="text-center">Date</th>
+        <th class="text-center">IP</th>
+        <th class="text-center">Host</th>
+        <th class="text-center">Facility</th>
+        <th class="text-center">Username</th>
+        <th class="text-center">Repetition</th>
+        <th class="text-center">Duration</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of alarmRules | paginate: {itemsPerPage:5, currentPage: p}">
+        <td *ngIf="item.typeFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameType==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.typeFlag==false && item.sameType==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.descriptionFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.description"  class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameDescription==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.descriptionFlag==false && item.sameDescription==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.dateFlag==true"><fieldset disabled=""><input type="text" value="{{item.date | date:'hh:mm yyyy-MM-dd'}}" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameDate==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.dateFlag==false && item.sameDate==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.ipAddressFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.ipAddress" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameIpAddress==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.ipAddressFlag==false && item.sameIpAddress==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.hostFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.host" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameHost==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.hostFlag==false && item.sameHost==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.facilityFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.facility" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameFacility==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.facilityFlag==false && item.sameFacility==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td *ngIf="item.usernameFlag==true"><fieldset disabled=""><input type="text" [(ngModel)]="item.tag" class="form-control text-center" /></fieldset></td>
+        <td *ngIf="item.sameUsername==true"><span class="badge badge-dark">Same</span></td>
+        <td *ngIf="item.usernameFlag==false && item.sameUsername==false"><span class="badge badge-danger">Disable</span></td>
+
+        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.repetition" class="form-control text-center" /></fieldset></td>
+        <td><fieldset disabled=""><input type="text" [(ngModel)]="item.minutes" class="form-control text-center" /></fieldset></td>
+
+      </tr>
+      </tbody>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </table>
+  </section>
+</div>

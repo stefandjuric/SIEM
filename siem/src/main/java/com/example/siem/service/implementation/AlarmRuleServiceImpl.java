@@ -6,6 +6,8 @@ import com.example.siem.service.AlarmRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by djuro on 6/1/2018.
  */
@@ -26,5 +28,12 @@ public class AlarmRuleServiceImpl implements AlarmRuleService
     {
         AlarmRule newAlarmRule = this.alarmRuleRepository.save(alarmRule);
         return newAlarmRule;
+    }
+
+    @Override
+    public List<AlarmRule> getAllAlarmRule()
+    {
+        List<AlarmRule> alarmRules = this.alarmRuleRepository.findAll();
+        return  alarmRules;
     }
 }
