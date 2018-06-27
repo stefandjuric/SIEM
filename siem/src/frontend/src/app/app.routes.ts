@@ -7,6 +7,7 @@ import { AddUserComponent } from './components/addUser/addUser.component';
 import { AlarmComponent } from "./components/alarm/alarm.component";
 import { AddAlarmRuleComponent } from "./components/addAlarmRule/addAlarmRule.component";
 import { ChangePassword } from "./components/changePassword/changePassword.component";
+import { ShowAllAlarmRules } from "./components/showAllAlarmRules/showAllAlarmRules.component";
 
 const appRoutes : Routes =
   [
@@ -33,6 +34,10 @@ const appRoutes : Routes =
     {
       path : 'changePassword',
       component : ChangePassword
+    },
+    {
+      path : 'showAllAlarmRule',
+      component : ShowAllAlarmRules
     }
 
   ];

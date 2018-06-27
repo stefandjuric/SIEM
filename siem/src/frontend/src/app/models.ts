@@ -43,7 +43,7 @@ export class AlarmRule
   constructor( public id:string,
                public type:string,
                public description:string,
-               public ipAdress:string,
+               public ipAddress:string,
                public date:Date,
                public host:string,
                public facility:string,

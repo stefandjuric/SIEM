@@ -45,6 +45,7 @@ export class NavbarComponent implements OnInit
   {
     this.addLink({text: "Add user", routerLink: "/addUser"});
     this.addLink({text: "Add alarm rule", routerLink: "/addAlarmComponent"});
+    this.addLink({text: "All alarm rules", routerLink: "/showAllAlarmRule"});
     this.addLink({text: "All logs", routerLink: "/allLogs"});
     this.addLink({text: "All alarms", routerLink: "/allAlarms"});
     this.addLink({text: "Change password", routerLink: "/changePassword"});
