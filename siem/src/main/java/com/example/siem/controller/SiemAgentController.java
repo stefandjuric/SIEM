@@ -108,5 +108,13 @@ public class SiemAgentController
     }
 
 
+    @RequestMapping(value = "/addAgentData", method = RequestMethod.POST
+            ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AgentData> addAgentData(@RequestBody AgentData agentData){
+
+        AgentData saved = this.siemAgentService.addAgentData(agentData);
+        return new ResponseEntity<>(saved, HttpStatus.OK);
+    }
+
 }
 

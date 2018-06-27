@@ -54,7 +54,7 @@ import { routing } from "./app.routes";
     AlarmComponent,
     AddAlarmRuleComponent,
     ChangePassword,
-    AgentManagerComponent
+    AgentManagerComponent,
     ChangePassword,
     ShowAllAlarmRules
   ],

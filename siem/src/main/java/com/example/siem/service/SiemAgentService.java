@@ -26,6 +26,7 @@ public interface SiemAgentService
 
     List<AgentData> getAllAgents();
 
-
     AgentData getAgent(String id);
+
+    AgentData addAgentData(AgentData agentData);
 }

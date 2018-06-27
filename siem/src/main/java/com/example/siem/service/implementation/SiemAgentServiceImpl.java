@@ -327,6 +327,13 @@ public class SiemAgentServiceImpl implements SiemAgentService
     }
 
 
+    public AgentData addAgentData(AgentData agentData)
+    {
+        AgentData saved = this.agentDataRepository.save(agentData);
+        return saved;
+    }
+
+
 
 
 
