@@ -23,4 +23,10 @@ export class AgentService {
   getAgent(id:string) {
     return this.http.get<AgentData>("https://localhost:8443/agent/getAgent/" + id);
   }
+
+  editAgent(agentData:AgentData)
+  {
+    let param = JSON.stringify(agentData);
+    return this.http.post<AgentData>("https://localhost:8443/agent/addAgentData", param, httpOptions)
+  }
 }

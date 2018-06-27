@@ -74,7 +74,7 @@
       <input type="text" class="form-control" id="role" name="usr" [(ngModel)]="agent.role" >
     </div>
     <div class="form-group" *ngIf="!agentsVisible">
-      <input type="button" value="Edit">
+      <input type="button" value="Edit" (click)="add()">
     </div>
   </div>
 </div>

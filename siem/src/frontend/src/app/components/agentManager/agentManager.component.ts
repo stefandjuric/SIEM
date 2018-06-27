@@ -130,5 +130,16 @@ export class AgentManagerComponent
     }
   }
 
+  public add()
+  {
+    let flag = false;
+    if(this.selectedEnabled == "true") flag = true;
+    this.agent.enabled = flag;
+    this.agentService.editAgent(this.agent).subscribe(
+      data => {
+        console.log(data);
+      });
+  }
+
 }
 
