@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
                 user.addUserAuthority(userAuthority);
                 break;
             }
-            case "ORDINARY_USER":
+            case "ROLE_USER":
             {
                 OrdinaryUser ordinaryUser = new OrdinaryUser(registerUser);
                 ordinaryUser.addUserAuthority(userAuthority);

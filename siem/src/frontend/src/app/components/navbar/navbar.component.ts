@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit
 
     if (this.currentRole == "ROLE_ADMIN")
       this.presetAdmin();
-    else if (this.currentRole == "ORDINARY_USER")
+    else if (this.currentRole == "ROLE_USER")
       this.presetUser();
   }
 

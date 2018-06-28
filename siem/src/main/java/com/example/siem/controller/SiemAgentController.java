@@ -7,6 +7,7 @@ import com.example.siem.domain.DTO.SendLogDTO;
 import com.example.siem.domain.Log;
 import com.example.siem.service.SiemAgentService;
 import com.mongodb.util.JSON;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,7 +54,7 @@ public class SiemAgentController
         return new ResponseEntity<>(agentData, HttpStatus.CREATED);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getLogs", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogs()
     {
@@ -62,6 +63,7 @@ public class SiemAgentController
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getLogsByType/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogsByType(@PathVariable("type") String type)
     {
@@ -69,6 +71,7 @@ public class SiemAgentController
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getLogsByDate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogsByDate(@RequestBody SearchByDateDTO dto)
     {
@@ -76,6 +79,7 @@ public class SiemAgentController
         return new ResponseEntity<>(logs, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getLogsByRegex", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Log>> getLogsByRegex(@RequestBody String regex)
     {
@@ -84,7 +88,6 @@ public class SiemAgentController
         if(logs == null) return new ResponseEntity<>(HttpStatus.CONFLICT);
         else return new ResponseEntity<>(logs, HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/sendAgentData", method = RequestMethod.POST
             ,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -96,7 +99,7 @@ public class SiemAgentController
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getAgents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AgentData>> getAgents()
     {
@@ -104,6 +107,7 @@ public class SiemAgentController
         return new ResponseEntity<>(agents, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/getAgent/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AgentData> getAgent(@PathVariable("id") String id)
     {
@@ -111,7 +115,7 @@ public class SiemAgentController
         return new ResponseEntity<>(ad, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @RequestMapping(value = "/addAgentData", method = RequestMethod.POST
             ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AgentData> addAgentData(@RequestBody AgentData agentData){

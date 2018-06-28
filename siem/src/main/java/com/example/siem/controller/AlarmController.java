@@ -34,7 +34,7 @@ public class AlarmController
         this.alarmService = alarmService;
         this.alarmRuleService = alarmRuleService;
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/addAlarmRule", method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AlarmRule> addAlarmRule(@RequestBody AlarmRule alarmRule) throws ParseException {
 
@@ -46,14 +46,14 @@ public class AlarmController
         return new ResponseEntity<>(alarmRule1, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/getAlarms", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Alarm>> getAlarms()
     {
         List<Alarm> alarms = this.alarmService.getAllAlarms();
         return new ResponseEntity<>(alarms, HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/getAllAlarmRules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AlarmRule>> getAllAlarmRules()
     {
