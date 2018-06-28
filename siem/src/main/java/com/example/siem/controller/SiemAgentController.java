@@ -48,7 +48,8 @@ public class SiemAgentController
         */
         String agentName = newLog.getAgentName();
         AgentData agentData = this.siemAgentService.getAgentDataByName(agentName);
-
+        System.out.println("Agent name: "+agentName);
+        System.out.println(agentData.getBatch());
         return new ResponseEntity<>(agentData, HttpStatus.CREATED);
     }
 
