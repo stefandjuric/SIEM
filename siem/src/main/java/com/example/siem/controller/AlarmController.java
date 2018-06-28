@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -33,7 +34,7 @@ public class AlarmController
         this.alarmService = alarmService;
         this.alarmRuleService = alarmRuleService;
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/addAlarmRule", method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AlarmRule> addAlarmRule(@RequestBody AlarmRule alarmRule) throws ParseException {
 
@@ -45,14 +46,14 @@ public class AlarmController
         return new ResponseEntity<>(alarmRule1, HttpStatus.CREATED);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/getAlarms", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Alarm>> getAlarms()
     {
         List<Alarm> alarms = this.alarmService.getAllAlarms();
         return new ResponseEntity<>(alarms, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/getAllAlarmRules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AlarmRule>> getAllAlarmRules()
     {
