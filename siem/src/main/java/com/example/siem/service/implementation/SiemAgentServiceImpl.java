@@ -318,18 +318,30 @@ public class SiemAgentServiceImpl implements SiemAgentService
         Boolean flag = false;
         for(Alarm a: notActiveAlarms) {
             Boolean flag1 = true;
-            if (!alarmRule.getSameType() && a.getType().equals(log.getType())) flag1 = false;
+            if (alarmRule.getSameType()){
+                if(!a.getType().equals(log.getType())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameHost() && a.getHost().equals(log.getHost())) flag1 = false;
+            if (alarmRule.getSameHost()){
+                if(!a.getHost().equals(log.getHost())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameIpAddress() && a.getIpAdress().equals(log.getIp())) flag1 = false;
+            if (alarmRule.getSameIpAddress()){
+                if(!a.getIpAdress().equals(log.getIp())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameUsername() && a.getUsername().equals(log.getTag())) flag1 = false;
+            if (alarmRule.getSameUsername()){
+                if(!a.getUsername().equals(log.getTag())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameDate() && a.getDate().equals(log.getDate())) flag1 = false;
+            if (alarmRule.getSameDate()){
+                if(!a.getDate().equals(log.getDate())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameFacility() && a.getFacility().equals(log.getFacility())) flag1 = false;
 
+            if (alarmRule.getSameFacility()){
+                if(!a.getFacility().equals(log.getFacility())) flag1 = false;
+            }
 
             if (flag1) {
                 flag = true;
