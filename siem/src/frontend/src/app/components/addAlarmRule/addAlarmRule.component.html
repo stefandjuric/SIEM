@@ -18,11 +18,6 @@
   </div>
 
   <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="customCheck6" checked="" [(ngModel)]="dateEnable">
-    <label class="custom-control-label" for="customCheck6">Date enable</label>
-  </div>
-
-  <div class="custom-control custom-checkbox">
     <input type="checkbox" class="custom-control-input" id="customCheck7" checked="" [(ngModel)]="usernameEnable">
     <label class="custom-control-label" for="customCheck7">Username enable</label>
   </div>
@@ -57,11 +52,6 @@
   <div class="custom-control custom-checkbox" *ngIf="descriptionEnable==false">
     <input type="checkbox" class="custom-control-input" id="customCheck11" checked="" [(ngModel)]="sameDescription">
     <label class="custom-control-label" for="customCheck11">Same description</label>
-  </div>
-
-  <div class="custom-control custom-checkbox" *ngIf="dateEnable==false">
-    <input type="checkbox" class="custom-control-input" id="customCheck12" checked="" [(ngModel)]="sameDate">
-    <label class="custom-control-label" for="customCheck12">Same date</label>
   </div>
 
   <div class="custom-control custom-checkbox" *ngIf="hostEnable==false">
@@ -107,11 +97,6 @@
   <div class="form-group" *ngIf="facilityEnable==true">
     <label for="fac">Facility</label>
     <input type="text" class="form-control" id="fac" placeholder="Enter facility" name="usr" [(ngModel)]="facility" >
-  </div>
-
-  <div class="form-group" *ngIf="dateEnable==true">
-    <label for="dat">Date</label>
-    <input type="date" class="form-control" id="dat" placeholder="Enter date" name="usr" [(ngModel)]="date" >
   </div>
 
   <div class="form-group">

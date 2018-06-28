@@ -51,13 +51,22 @@ export class AddAlarmRuleComponent {
   constructor(private alarmService: AlarmService, private _router: Router) {
   }
 
-
   addAlarmRule() {
-    this.alarmService.addAlarmRule(new AlarmRule(null, this.type, this.description, this.ipAddress, this.date, this.host, this.facility,
-      this.username, this.repetition, this.minutes, this.typeEnable, this.descriptionEnable, this.ipAddressEnable, this.dateEnable, this.hostEnable,
+    if(this.typeEnable) this.sameType = false;
+    if(this.descriptionEnable) this.sameDescription = false;
+    if(this.ipAddressEnable) this.sameIpAddress = false;
+    if(this.dateEnable) this.sameDate = false;
+    if(this.usernameEnable) this.sameUsername = false;
+    if(this.hostEnable) this.sameHost = false;
+    if(this.facilityEnable) this.sameFacility = false;
+    this.alarmService.addAlarmRule(new AlarmRule(null, this.type, this.description, this.ipAddress, null, this.host, this.facility,
+      this.username, this.repetition, this.minutes, this.typeEnable, this.descriptionEnable, this.ipAddressEnable, false, this.hostEnable,
       this.facilityEnable, this.usernameEnable, this.sameIpAddress, this.sameUsername, this.sameType,
-      this.sameDescription, this.sameDate, this.sameHost, this.sameFacility)).subscribe(
-      data => console.log(data),
+      this.sameDescription, false, this.sameHost, this.sameFacility)).subscribe(
+      data => {
+        console.log(data);
+        this._router.navigate(['/showAllAlarmRule']);
+      }
     );
   }
 }
