@@ -31,7 +31,7 @@ public class SiemAgentController
 
     @RequestMapping(value = "/saveLog", method = RequestMethod.POST
             ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Log> addLog(@RequestBody byte[] s) throws ParseException {
+    public ResponseEntity<AgentData> addLog(@RequestBody byte[] s) throws ParseException {
 
         String s2 = new String(s);
 
@@ -46,7 +46,11 @@ public class SiemAgentController
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         */
-        return new ResponseEntity<>(newLog, HttpStatus.CREATED);
+        String agentName = newLog.getAgentName();
+        AgentData agentData = this.siemAgentService.getAgentDataByName(agentName);
+        System.out.println("Agent name: "+agentName);
+        System.out.println(agentData.getBatch());
+        return new ResponseEntity<>(agentData, HttpStatus.CREATED);
     }
 
 
@@ -107,6 +111,14 @@ public class SiemAgentController
         return new ResponseEntity<>(ad, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "/addAgentData", method = RequestMethod.POST
+            ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AgentData> addAgentData(@RequestBody AgentData agentData){
+
+        AgentData saved = this.siemAgentService.addAgentData(agentData);
+        return new ResponseEntity<>(saved, HttpStatus.OK);
+    }
 
 }
 

@@ -1,6 +1,7 @@
 package com.example.siem.service;
 
 import com.example.siem.domain.AgentData;
+import com.example.siem.domain.AlarmRule;
 import com.example.siem.domain.Log;
 
 import java.text.ParseException;
@@ -26,6 +27,9 @@ public interface SiemAgentService
 
     List<AgentData> getAllAgents();
 
-
     AgentData getAgent(String id);
+
+    AgentData addAgentData(AgentData agentData);
+
+    AgentData getAgentDataByName(String agentName);
 }

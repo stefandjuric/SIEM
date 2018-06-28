@@ -36,4 +36,5 @@ public class AlarmRuleServiceImpl implements AlarmRuleService
         List<AlarmRule> alarmRules = this.alarmRuleRepository.findAll();
         return  alarmRules;
     }
+
 }

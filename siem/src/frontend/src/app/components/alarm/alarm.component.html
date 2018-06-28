@@ -5,21 +5,35 @@
       <tr>
         <th>Type</th>
         <th>Description</th>
+        <th>Host</th>
+        <th>Facility</th>
         <th>Date</th>
         <th>IP Address</th>
         <th>Repetition</th>
         <th>Username</th>
         <th>Same IP address</th>
         <th>Same username</th>
+        <th>Same type</th>
+        <th>Same description</th>
+        <th>Same host</th>
+        <th>Same facility</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of alarms | paginate: {itemsPerPage:5, currentPage: p}">
         <td *ngIf="item.alarmType.typeFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
-        <td *ngIf="item.alarmType.typeFlag==false"><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.typeFlag==false" ><fieldset disabled=""><input type="text" [(ngModel)]="item.type" class="form-control" /></fieldset></td>
 
         <td *ngIf="item.alarmType.descriptionFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
         <td *ngIf="item.alarmType.descriptionFlag==false"><fieldset disabled=""><input type="text" [(ngModel)]="item.description" class="form-control" /></fieldset></td>
+
+        <td *ngIf="item.alarmType.hostFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.alarmType.host" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.hostFlag==false"><span class="badge badge-dark">enable</span></td>
+
+        <td *ngIf="item.alarmType.facilityFlag==true"><fieldset disabled=""><input style="color: #ff0000;" type="text" [(ngModel)]="item.alarmType.facility" class="form-control" /></fieldset></td>
+        <td *ngIf="item.alarmType.facilityFlag==false"><span class="badge badge-dark">enable</span></td>
+
+
 
         <td><fieldset disabled=""><input type="text" class="form-control" value="{{item.dateOfRepetition[0] | date:'hh:mm yyyy-MM-dd'}}" /></fieldset></td>
 
@@ -36,6 +50,17 @@
         <td *ngIf="item.alarmType.sameUsername==true"><span class="badge badge-danger">{{item.alarmType.sameUsername}}</span></td>
         <td *ngIf="item.alarmType.sameUsername==false"><span class="badge badge-dark">{{item.alarmType.sameUsername}}</span></td>
 
+        <td *ngIf="item.alarmType.sameType==true"><span class="badge badge-danger">{{item.alarmType.sameType}}</span></td>
+        <td *ngIf="item.alarmType.sameType==false"><span class="badge badge-dark">{{item.alarmType.sameType}}</span></td>
+
+        <td *ngIf="item.alarmType.sameDescription==true"><span class="badge badge-danger">{{item.alarmType.sameDescription}}</span></td>
+        <td *ngIf="item.alarmType.sameDescription==false"><span class="badge badge-dark">{{item.alarmType.sameDescription}}</span></td>
+
+        <td *ngIf="item.alarmType.sameHost==true"><span class="badge badge-danger">{{item.alarmType.sameHost}}</span></td>
+        <td *ngIf="item.alarmType.sameHost==false"><span class="badge badge-dark">{{item.alarmType.sameHost}}</span></td>
+
+        <td *ngIf="item.alarmType.sameFacility==true"><span class="badge badge-danger">{{item.alarmType.sameFacility}}</span></td>
+        <td *ngIf="item.alarmType.sameFacility==false"><span class="badge badge-dark">{{item.alarmType.sameFacility}}</span></td>
       </tr>
       </tbody>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>

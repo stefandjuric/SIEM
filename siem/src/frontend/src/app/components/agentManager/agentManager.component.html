@@ -29,12 +29,12 @@
   <div *ngIf="!agentsVisible" class="edit">
     <div *ngIf="!agentsVisible">
       <label for="rep">File paths:</label>
-      <select *ngIf="!addFilePath" class="form-control" id="exampleSelect2" [(ngModel)]="agent.filePaths">
+      <select *ngIf="!addFilePath" class="form-control" id="exampleSelect2" [(ngModel)]="selectedFilePath">
         <option *ngFor="let item of agent.filePaths">{{item}}</option>
       </select>
       <input *ngIf="addFilePath" type="input" [(ngModel)]="newFilePath">
       <input *ngIf="!addFilePath" type="button" value="Add file path" (click)="addNewFilePath()">
-      <input *ngIf="!addFilePath" type="button" value="Delete file path">
+      <input *ngIf="!addFilePath" type="button" value="Delete file path" (click)="deleteFilePath()">
       <input *ngIf="addFilePath" type="button" value="Confirm" (click)="confirm()">
       <input *ngIf="addFilePath" type="button" value="Cancel" (click)="cancel()">
     </div>
@@ -48,17 +48,25 @@
     </div>
     <div *ngIf="!agentsVisible">
       <label for="rep">Types:</label>
-      <select   class="form-control" id="exampleSelect3" [(ngModel)]="agent.types">
+      <select *ngIf="!typesVisible"  class="form-control" id="exampleSelect3" [(ngModel)]="selectedType">
         <option *ngFor="let item of agent.types">{{item}}</option>
       </select>
-      <input type="button" value="Add type">
-      <input type="button" value="Delete type">
+      <select *ngIf="typesVisible" class="form-control" id="exampleSelect5" [(ngModel)]="selectedTypeValue">
+        <option>INFO</option>
+        <option>WARNING</option>
+        <option>ERROR</option>
+        <option>CRITICAL</option>
+      </select>
+      <input *ngIf="typesVisible" type="button" value="Confirm" (click)="confirmNewType()">
+      <input *ngIf="typesVisible" type="button" value="Cancel" (click)="cancelType()">
+      <input *ngIf="!typesVisible" type="button" value="Add type" (click)="addNewType()">
+      <input *ngIf="!typesVisible" type="button" value="Delete type" (click)="deleteType()">
     </div>
     <div *ngIf="!agentsVisible">
       <label for="rep">Enabled:</label>
-      <select   class="form-control" id="exampleSelect4" [(ngModel)]="agent.enabled">
-        <option >TRUE</option>
-        <option>FALSE</option>
+      <select   class="form-control" id="exampleSelect4" [(ngModel)]="selectedEnabled">
+        <option >true</option>
+        <option>false</option>
       </select>
     </div>
     <div class="form-group" *ngIf="!agentsVisible">
@@ -66,7 +74,7 @@
       <input type="text" class="form-control" id="role" name="usr" [(ngModel)]="agent.role" >
     </div>
     <div class="form-group" *ngIf="!agentsVisible">
-      <input type="button" value="Edit">
+      <input type="button" value="Edit" (click)="add()">
     </div>
   </div>
 </div>

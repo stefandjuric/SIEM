@@ -59,7 +59,7 @@ public class SiemAgentServiceImpl implements SiemAgentService
 
     @Override
     public Log saveLog(String log) throws ParseException {
-
+        System.out.println(log);
         String lines[] = log.split("&");
         System.out.println(log);
         for (int i = 0; i < lines.length; i++){
@@ -72,8 +72,9 @@ public class SiemAgentServiceImpl implements SiemAgentService
             lines[i] = a[1];
             }
         }
-        Log saved = new Log(lines[0],lines[1],lines[2],lines[3],lines[4],lines[5],lines[6]);
+        Log saved = new Log(lines[0],lines[1],lines[2],lines[3],lines[4],lines[5],lines[6],lines[7]); // dodati agent name
         saved = this.logRepository.save(saved);
+        System.out.println(saved);
         this.addAlarm(saved);
         return saved;
     }
@@ -219,19 +220,40 @@ public class SiemAgentServiceImpl implements SiemAgentService
         {
            Boolean flag = true;
 
-            if(!ar.getType().equals(log.getType()) && ar.getTypeFlag()) flag = false;
+           if(ar.getTypeFlag())
+           {
+               if(!ar.getType().equals(log.getType())) flag = false;
+           }
 
-            if(!ar.getDescription().equals(log.getDescription()) && ar.getDescriptionFlag()) flag = false;
+           if(ar.getDescriptionFlag())
+           {
+               if(!ar.getDescription().equals(log.getDescription())) flag = false;
+           }
 
-            if(!ar.getIpAddress().equals(log.getIp()) && ar.getIpAddressFlag()) flag = false;
+           if(ar.getIpAddressFlag())
+           {
+               if(!ar.getIpAddress().equals(log.getIp())) flag = false;
+           }
 
-            if(!ar.getUsername().equals(log.getTag()) && ar.getUsernameFlag()) flag = false;
+           if(ar.getUsernameFlag())
+           {
+               if(!ar.getUsername().equals(log.getTag())) flag = false;
+           }
 
-            if(!ar.getDate().equals(log.getDate()) && ar.getDateFlag()) flag = false;
+           if(ar.getDateFlag())
+           {
+               if(!ar.getDate().equals(log.getDate())) flag = false;
+           }
 
-            if(!ar.getHost().equals(log.getHost()) && ar.getHostFlag()) flag = false;
+           if(ar.getHostFlag())
+           {
+               if(!ar.getHost().equals(log.getHost())) flag = false;
+           }
 
-            if(!ar.getFacility().equals(log.getFacility()) && ar.getFacilityFlag()) flag = false;
+           if(ar.getFacilityFlag())
+           {
+               if(!ar.getFacility().equals(log.getFacility())) flag = false;
+           }
 
             if(flag) this.checkRepetition(log, ar);
         }
@@ -296,18 +318,30 @@ public class SiemAgentServiceImpl implements SiemAgentService
         Boolean flag = false;
         for(Alarm a: notActiveAlarms) {
             Boolean flag1 = true;
-            if (!alarmRule.getSameType() && a.getType().equals(log.getType())) flag1 = false;
+            if (alarmRule.getSameType()){
+                if(!a.getType().equals(log.getType())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameHost() && a.getHost().equals(log.getHost())) flag1 = false;
+            if (alarmRule.getSameHost()){
+                if(!a.getHost().equals(log.getHost())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameIpAddress() && a.getIpAdress().equals(log.getIp())) flag1 = false;
+            if (alarmRule.getSameIpAddress()){
+                if(!a.getIpAdress().equals(log.getIp())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameUsername() && a.getUsername().equals(log.getTag())) flag1 = false;
+            if (alarmRule.getSameUsername()){
+                if(!a.getUsername().equals(log.getTag())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameDate() && a.getDate().equals(log.getDate())) flag1 = false;
+            if (alarmRule.getSameDate()){
+                if(!a.getDate().equals(log.getDate())) flag1 = false;
+            }
 
-            if (!alarmRule.getSameFacility() && a.getFacility().equals(log.getFacility())) flag1 = false;
 
+            if (alarmRule.getSameFacility()){
+                if(!a.getFacility().equals(log.getFacility())) flag1 = false;
+            }
 
             if (flag1) {
                 flag = true;
@@ -325,6 +359,30 @@ public class SiemAgentServiceImpl implements SiemAgentService
             this.alarmRepository.save(alarm);
         }
     }
+
+
+    public AgentData addAgentData(AgentData agentData)
+    {
+        AgentData saved = this.agentDataRepository.save(agentData);
+        return saved;
+    }
+
+
+    public AgentData getAgentDataByName(String agentName)
+    {
+        List<AgentData> agentDatas = this.agentDataRepository.findAll();
+        AgentData agentData = null;
+        for(AgentData ad : agentDatas)
+        {
+            if(ad.getName().equals(agentName))
+            {
+                if(agentData == null) agentData = ad;
+                break;
+            }
+        }
+        return agentData;
+    }
+
 
 
 

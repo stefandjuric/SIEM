@@ -42,7 +42,9 @@ public class Log
 
     private String tag;
 
-    public Log(String type, String description, String date, String ip , String host, String facility, String tag) throws
+    private String agentName;
+
+    public Log(String type, String description, String date, String ip , String host, String facility, String tag, String agentName) throws
             ParseException
     {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
@@ -53,6 +55,7 @@ public class Log
         this.host = host;
         this.tag = tag;
         this.facility = facility;
+        this.agentName = agentName;
     }
 
 
@@ -126,4 +129,6 @@ public class Log
                 "Log[id=%s, type='%s', description='%s', date='%s']",
                 id, type, description, date);
     }
+
+
 }

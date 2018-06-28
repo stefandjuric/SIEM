@@ -30,7 +30,7 @@ public class AgentData {
 
     private String role;
 
-    private String[] ports  ;
+    private String[] ports;
 
     private String port;
 
